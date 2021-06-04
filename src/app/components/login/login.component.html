@@ -1,25 +1,23 @@
-<body class="login text-center">
-    <div class="logo">
-        <img src="../../../assets/images/loginimage.jpg" alt="imagen de login">
-    </div>
-    <div class="container m-4">
-        <form class="form-signin shadow-lg text-white">
-            <h1 class="h1"><strong>Iniciar Sesión</strong></h1>
-            <img class="mb-4" width="100" height="100" src="../../../assets/images/login.png" alt="img ...">
-            <div class="row mb-3 shadow-sm">
-                <label for="username" class="form-label">Ingresa tu nombre de usuario</label>
-                <input class="form-control" type="text" name="username" id="inputUsername" placeholder="Usuario" required>
+<div class="register m-0 bg-custom">
+    <div class="container p-4 register-form-l bg-light m-4 shadow-lg border border-2 col-7">
+        <form class="m-0 m-auto align-middle">
+            <h1 class="text-secondary fs-1 fw-bolder mb-4">Iniciar Sesión</h1>
+            <div class="mb-3 row">
+                <input class="p-2 form-control col" type="text" name="username" id="username" placeholder="Nombre de Usuario">
             </div>
-            <div class="row mb-3 shadow-sm">
-                <label for="password" class="form-label">Ingresa tu contraseña</label>
-                <input class="form-control" type="password" name="password" id="inputPassword" placeholder="Contrasena" required>
+            <div class="mb-3 row">
+                <input class="p-2 form-control col" type="password" name="password" id="password" placeholder="Contraseña">
             </div>
-            <div class="row mb-3">
-                <button class="btn btn-outline-light btn-block" type="submit">Iniciar Sesión</button>
+            <div class="mb-3">
+                <button class="btn btn-outline-info btn-lg rounded-pill" type="submit">Iniciar Sesión</button>
             </div>
         </form>
+        <div class="mb-3 row gap-2 col-4 p-4 m-0 m-auto bg-info p-4 rounded-pill m-4 text-left">
+            <button class="btn btn-info col rounded-pill text-light" routerLink="/login">Login</button>
+            <button class="btn btn-outline-light col rounded-pill text-light" routerLink="/register">Register</button>
+        </div>
     </div>
-    <div class="mb-3 row gap-2">
-        <button class="btn btn-outline-info btn-lg col" routerLink="/register">Registro</button>
+    <div class="register-form-r m-0 col">
+        <p class="custom-font fs-1 m-0 p-0 text-center text-light text-break fw-bolder">Control Torneo Deportivo Fundacion Kinal 2021</p>
     </div>
-</body>
+</div>

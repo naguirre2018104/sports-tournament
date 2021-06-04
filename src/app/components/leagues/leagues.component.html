@@ -13,19 +13,19 @@
         <div class="card-body position-relative">
             <h5 class="card-title fw-bolder mb-2">Nombre liga</h5>
             <div class="row gap-2 m0-auto">
-                <a class="btn btn-warning col-5"><i class="bi bi-pencil-square"></i></a>
-                <a class="btn btn-danger col-5"><i class="bi bi-trash-fill "></i></a>
+                <a class="btn btn-warning col-5" data-bs-toggle="modal" data-bs-target="#updateLeague"><i class="bi bi-pencil-square"></i></a>
+                <a class="btn btn-danger col-5" data-bs-toggle="modal" data-bs-target="#deleteLeague"><i class="bi bi-trash-fill "></i></a>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Modal -->
+<!-- Modal Create League -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Crear liga</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form class="modal-body" #leagueForm="ngForm" (ngSubmit)="onSubmit(leagueForm)">
@@ -35,6 +35,57 @@
                 </div>
                 <div class="mb-3 d-grid gap-2">
                     <button class="btn btn-success" type="submit" [disabled]="!leagueForm.form.valid">Crear</button>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Update League -->
+
+<div class="modal fade" id="updateLeague" tabindex="-1" aria-labelledby="updateLeagueLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="updateLeagueLabel">Modificar liga</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form class="modal-body" #leagueForm="ngForm" (ngSubmit)="onSubmit(leagueForm)">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Nombre de la liga:</label>
+                    <input class="form-control" type="text" name="name" id="name" placeholder="Nuevo nombre de liga" required>
+                </div>
+                <div class="mb-3 d-grid gap-2">
+                    <button class="btn btn-warning" type="submit" [disabled]="!leagueForm.form.valid">Actualizar</button>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Delete League -->
+<div class="modal fade" id="deleteLeague" tabindex="-1" aria-labelledby="deleteLeagueLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteLeagueLabel">Eliminar liga</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form class="modal-body" #leagueForm="ngForm" (ngSubmit)="onSubmit(leagueForm)">
+                <p class="fs-1 fw-bolder text-danger">¿Está seguro de querer eliminar esta liga?</p>
+                <p class="fs-2 fw-bolder text-warning">Esta acción no se puede deshacer</p>
+                <div class="mb-3">
+                    <label for="name" class="form-label">Ingrese la contraseña para confirmar:</label>
+                    <input class="form-control" type="password" name="password" id="password" placeholder="Contraseña" required>
+                </div>
+                <div class="mb-3 d-grid gap-2">
+                    <button class="btn btn-danger" type="submit" [disabled]="!leagueForm.form.valid">Eliminar</button>
                 </div>
             </form>
             <div class="modal-footer">

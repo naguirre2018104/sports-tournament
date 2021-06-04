@@ -16,6 +16,8 @@ import { UsersComponent } from './components/users/users.component';
 import { TournamentsComponent } from './components/tournaments/tournaments.component';
 import { LoginComponent } from './components/login/login.component';
 import { StadisticsComponent } from './components/stadistics/stadistics.component';
+import { TeamsComponent } from './components/teams/teams.component';
+import { AccountComponent } from './components/account/account.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,9 @@ import { StadisticsComponent } from './components/stadistics/stadistics.componen
     UsersComponent,
     TournamentsComponent,
     LoginComponent,
-    StadisticsComponent
+    StadisticsComponent,
+    TeamsComponent,
+    AccountComponent
   ],
   imports: [
     BrowserModule,

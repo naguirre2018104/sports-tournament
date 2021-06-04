@@ -8,35 +8,61 @@ html {
     box-sizing: inherit;
 }
 
+.custom-font {
+    font-family: 'Squada One', cursive;
+}
+
 .register {
     height: 100vh;
     margin: 0;
     padding: 0;
     display: flex;
     flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    text-align: left;
 }
 
 .register-form-l {
-    width: 50rem;
     border-bottom-right-radius: 20rem;
     border-top-right-radius: 20rem;
+    border-top-left-radius: 5rem;
+    border-bottom-left-radius: 5rem;
+}
+
+.register-form-l div button:hover {
+    color: black!important;
 }
 
 .register-form-r {
-    width: 50%;
+    /* width: 50%; */
 }
 
 @media (max-width: 768px) {
     .register {
         display: block;
+        width: 100vw;
+        flex-direction: column;
+        margin: 0!important;
+        padding: 0!important;
+        max-width: 100vw;
+        padding: 1rem 0!important;
         /* flex-direction: column; */
     }
     .register-form-l {
+        margin: 0!important;
         width: 100vw;
+        border-bottom-right-radius: 0!important;
+        border-top-right-radius: 0!important;
+        border-top-left-radius: 0!important;
+        border-bottom-left-radius: 0!important;
     }
-    .register-form-r {
-        display: none;
+    .register-form-l>div {
+        width: auto;
+        margin: 0;
+        padding: 0;
     }
+    /* .register-form-r {} */
 }
 
 .bg-custom {
@@ -58,6 +84,8 @@ form {
 
 @media (max-width: 768px) {
     form {
-        padding: 1rem;
+        /* padding: 1rem; */
+        margin: 0!important;
+        padding: 0!important;
     }
 }

@@ -10,21 +10,8 @@
     </div>
 </div>
 
-
 <!-- Teams -->
-
-<div class="container pt-4 pb-4 m0-auto row">
-    <div class="card shadow-sm leagues bg-light col-1 p-1" style="width: 18rem;" *ngFor="let item of [1,1,1,1,1,1,1]">
-        <img src="./../../../assets/images/barcelona.png" class="card-img-top" alt="...">
-        <div class="card-body position-relative">
-            <h5 class="card-title fw-bolder mb-2">Barcelona</h5>
-            <div class="row gap-2 m0-auto">
-                <a class="btn btn-warning col-5"><i class="bi bi-pencil-square"></i></a>
-                <a class="btn btn-danger col-5"><i class="bi bi-trash-fill "></i></a>
-            </div>
-        </div>
-    </div>
-</div>
+<app-teams></app-teams>
 
 
 <!-- Modal Create Team -->
@@ -38,7 +25,7 @@
             <form class="modal-body" #leagueForm="ngForm" (ngSubmit)="onSubmit(leagueForm)">
                 <div class="mb-3">
                     <label for="name" class="form-label">Ingresa el nombre del equipo:</label>
-                    <input class="form-control" type="text" name="name" id="name" placeholder="Liga" required>
+                    <input class="form-control" type="text" name="name" id="name" placeholder="Equipo" required>
                 </div>
                 <div class="mb-3">
                     <label for="image" class="form-label">Elija una imagen:</label>
