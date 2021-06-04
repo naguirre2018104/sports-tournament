@@ -17,7 +17,9 @@ html {
 }
 
 .register-form-l {
-    width: 50%;
+    width: 50rem;
+    border-bottom-right-radius: 20rem;
+    border-top-right-radius: 20rem;
 }
 
 .register-form-r {

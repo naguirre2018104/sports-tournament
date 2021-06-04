@@ -1,11 +1,9 @@
-<!-- <div class="sidebar" *ngIf="role == 'ROLE_ADMIN' || role == 'ROLE_HOTEL'; else user">
+<div class="sidebar" *ngIf="false; else user">
     <app-sidebar></app-sidebar>
     <router-outlet></router-outlet>
-</div> -->
-<!-- <ng-template #user> -->
-<app-navbar></app-navbar>
+</div>
+<ng-template #user>
+    <app-navbar></app-navbar>
 
-<router-outlet></router-outlet>
-
-<!-- <router-outlet></router-outlet>
-</ng-template> -->
+    <router-outlet></router-outlet>
+</ng-template>

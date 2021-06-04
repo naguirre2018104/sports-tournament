@@ -8,7 +8,7 @@
             </div>
         </div>
         <div class="overflow-auto maxheight">
-            <div class="card tournaments shadow-sm" >
+            <div class="card tournaments shadow-sm" *ngFor="let item of []">
                 <div class="card-body minheight">
 
                 </div>
@@ -17,36 +17,36 @@
     </div>
 </div>
 <!-- Modal Crear Torneo -->
-    <div class="modal fade" id="createTournament" tabindex="-1" aria-labelledby="createTournamentLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
+<div class="modal fade" id="createTournament" tabindex="-1" aria-labelledby="createTournamentLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="createTournamentLabel">Crear Torneo</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title" id="createTournamentLabel">Crear Torneo</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              
-              <form>
+
+                <form>
                     <div class="form-group">
                         <label for="inputNameTournament">Nombre de Torneo</label>
                         <input name="nameTournament" type="text" class="form-control" id="inputNameTournament">
                     </div>
-                <div class="form-group">
-                    <label for="inputLiga">Liga</label>
-                    <select name="role" id="inputLiga" class="form-control">
+                    <div class="form-group">
+                        <label for="inputLiga">Liga</label>
+                        <select name="role" id="inputLiga" class="form-control">
                         <option selected disabled>Elige una liga...</option>
                         <option></option>
                       </select>
-                </div>
-                <div class="modal-footer">
-                  <button type="submit" class="btn btn-primary btn-block">Crear</button>
-                </div>
-            </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary btn-block">Crear</button>
+                    </div>
+                </form>
 
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
             </div>
-          </div>
         </div>
-      </div>
+    </div>
+</div>

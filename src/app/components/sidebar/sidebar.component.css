@@ -13,9 +13,8 @@ body {
     width: 15vw;
     max-height: 100vh;
     height: 100vh;
-    color: white;
-    background: rgb(41,242,170);
-    background: linear-gradient(90deg, rgba(41,242,170,1) 0%, rgba(163,122,254,0.9738095921962535) 100%);
+    /* background: rgb(41,242,170);
+    background: linear-gradient(90deg, rgba(41,242,170,1) 0%, rgba(163,122,254,0.9738095921962535) 100%); */
 }
 
 .sidbar-admin nav {
@@ -40,11 +39,14 @@ a {
 }
 
 a:hover {
-    color: white;
+    color: black;
     border-bottom: 1px solid white;
+    background-color: white;
+    border-radius: 1rem;
 }
 
-a:visited {
+
+/* a:visited {
     color: white;
     border-bottom: 1px solid white;
-}
+} */

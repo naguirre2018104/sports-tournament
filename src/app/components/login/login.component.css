@@ -32,7 +32,7 @@ h1 {
 }
 
 .logo {
-    background-image: url("../../../assets/img/loginimage.jpg");
+    background-image: url("../../../assets/images/loginimage.jpg");
     background-repeat: no-repeat;
 }
 
@@ -53,15 +53,13 @@ h1 {
     margin: auto;
     padding: 2rem 2rem;
     border-radius: 5%;
-    background: rgb(41,242,170);
-    background: linear-gradient(90deg, rgba(41,242,170,1) 0%, rgba(163,122,254,0.9738095921962535) 100%);
-
+    background: rgb(41, 242, 170);
+    background: linear-gradient(90deg, rgba(41, 242, 170, 1) 0%, rgba(163, 122, 254, 0.9738095921962535) 100%);
 }
 
 @media (max-width: 768px) {
     .form-signin {
         width: 100%;
         margin: auto;
-        
     }
 }
