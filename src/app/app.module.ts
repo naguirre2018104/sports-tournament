@@ -10,6 +10,12 @@ import { LeagueComponent } from './components/league/league.component';
 import { FormsModule } from '@angular/forms';
 import { LeaguesComponent } from './components/leagues/leagues.component';
 import { RegisterComponent } from './components/register/register.component';
+import { HomeAdminComponent } from './components/home-admin/home-admin.component';
+import { HistoryComponent } from './components/history/history.component';
+import { UsersComponent } from './components/users/users.component';
+import { TournamentsComponent } from './components/tournaments/tournaments.component';
+import { LoginComponent } from './components/login/login.component';
+import { StadisticsComponent } from './components/stadistics/stadistics.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +25,13 @@ import { RegisterComponent } from './components/register/register.component';
     HomeComponent,
     LeagueComponent,
     LeaguesComponent,
-    RegisterComponent
+    RegisterComponent,
+    HomeAdminComponent,
+    HistoryComponent,
+    UsersComponent,
+    TournamentsComponent,
+    LoginComponent,
+    StadisticsComponent
   ],
   imports: [
     BrowserModule,

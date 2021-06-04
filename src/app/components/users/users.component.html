@@ -1,0 +1,72 @@
+<div class="main p-4">
+    <div class="container">
+        <div class="jumbotron jumbotron-fluid text-light rounded p-4">
+            <div class="container">
+                <h1 class="display-4 font-weight-bolder">Usuarios</h1>
+                <p class="lead">En esta sección puedes administrar todos los usuarios<span class="font-weight-bolder"></span></p>
+                <button type="button" class="btn btn-lg btn-outline-light text-uppercase" data-bs-toggle="modal" data-bs-target="#createUser">Crear Usuario</button>
+            </div>
+        </div>
+        <div class="overflow-auto maxheight">
+            <div class="card users shadow-sm" >
+                <div class="card-body minheight">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal Crear Usuario -->
+    <div class="modal fade" id="createUser" tabindex="-1" aria-labelledby="createUserLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="createUserLabel">Crear Usuario</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              
+              <form>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="inputUsername">Nombre de Usuario</label>
+                        <input name="username" type="text" class="form-control" id="inputUsername">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputPassword">Contraseña</label>
+                        <input name="password" type="password" class="form-control" id="inputPassword">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputEmail">Email</label>
+                    <input name="email" type="email" class="form-control" id="inputEmail">
+                </div>
+                <div class="form-group">
+                    <label for="inputName">Nombre</label>
+                    <input name="name" type="text" class="form-control" id="inputName">
+                </div>
+                <div class="form-group">
+                    <label for="inputLastname">Apellido</label>
+                    <input name="lastname" type="text" class="form-control" id="inputLastname">
+                </div>
+                <div class="form-group">
+                    <label for="inputRole">Rol</label>
+                    <select name="role" id="inputState" class="form-control">
+                        <option selected disabled>Elige un tipo de usuario...</option>
+                        <option></option>
+                      </select>
+                </div>
+                <div class="modal-footer">
+                  <button type="submit" class="btn btn-primary btn-block">Crear</button>
+                </div>
+            </form>
+
+
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+          </div>
+        </div>
+      </div>
