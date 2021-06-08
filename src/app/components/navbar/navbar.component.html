@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-primary text-light p-2 pe-4 ps-4">
-    <a class="navbar-brand fs-2" href="#"><i class="bi bi-kanban-fill"></i></a>
+    <a class="navbar-brand fs-2" routerLink="/home"><i class="bi bi-kanban-fill"></i></a>
 
     <div class="collapse navbar-collapse mobile-view" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto ps-4">
@@ -7,10 +7,13 @@
                 <a class="nav-link enter" routerLink="/home">Inicio</a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link enter" href="#">Estadisticas</a>
+                <a class="nav-link enter" routerLink="/stadistics">Estadisticas</a>
             </li>
+            <!-- <li class="nav-item">
+                <a class="nav-link enter" routerLink="/tournaments">Torneos</a>
+            </li> -->
             <li class="nav-item">
-                <a class="nav-link enter" href="#">Torneos</a>
+                <a class="nav-link enter" routerLink="/leagues">Ligas</a>
             </li>
         </ul>
         <form class="form-inline d-flex search">
@@ -21,8 +24,8 @@
                 <i class="bi bi-gear-wide-connected text-light"></i>
             </button>
             <ul class="dropdown-menu text-dark">
-                <li><a class="dropdown-item dark-enters" type="button">Historial</a></li>
-                <li><a class="dropdown-item dark-enters" type="button">Mi cuenta</a></li>
+                <li><a class="dropdown-item dark-enters" type="button" routerLink="/history">Historial</a></li>
+                <li><a class="dropdown-item dark-enters" type="button" routerLink="/account">Mi cuenta</a></li>
                 <li>
                     <hr class="dropdown-divider">
                 </li>
@@ -33,11 +36,11 @@
             <div class="d-flex">
                 <button class="btn btn-outline-light dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                     Configuracion
-                  </button>
+                </button>
             </div>
             <ul class="dropdown-menu text-dark">
-                <li><a class="dropdown-item dark-enters" type="button">Historial</a></li>
-                <li><a class="dropdown-item dark-enters" type="button">Mi cuenta</a></li>
+                <li><a class="dropdown-item dark-enters" type="button" routerLink="/history">Historial</a></li>
+                <li><a class="dropdown-item dark-enters" type="button" routerLink="/account">Mi cuenta</a></li>
                 <li>
                     <hr class="dropdown-divider">
                 </li>
