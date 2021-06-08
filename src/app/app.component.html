@@ -2,8 +2,9 @@
     <app-sidebar></app-sidebar>
     <router-outlet></router-outlet>
 </div>
+
 <ng-template #user>
-    <app-navbar *ngIf="true"></app-navbar>
+    <app-navbar *ngIf="token != null"></app-navbar>
 
     <router-outlet></router-outlet>
 </ng-template>

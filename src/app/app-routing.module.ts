@@ -16,7 +16,7 @@ import { AccountComponent } from './components/account/account.component';
 
 const routes: Routes = [
   {
-    path: "", redirectTo: "home", pathMatch: "full"
+    path: "", redirectTo: "login", pathMatch: "full"
   },
   {
     path: "league", component: LeagueComponent
