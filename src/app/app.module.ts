@@ -18,6 +18,7 @@ import { LoginComponent } from './components/login/login.component';
 import { StadisticsComponent } from './components/stadistics/stadistics.component';
 import { TeamsComponent } from './components/teams/teams.component';
 import { AccountComponent } from './components/account/account.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { AccountComponent } from './components/account/account.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
