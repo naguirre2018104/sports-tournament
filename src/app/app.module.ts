@@ -19,6 +19,8 @@ import { StadisticsComponent } from './components/stadistics/stadistics.componen
 import { TeamsComponent } from './components/teams/teams.component';
 import { AccountComponent } from './components/account/account.component';
 import { HttpClientModule } from '@angular/common/http';
+import { SearchPipe } from './pipes/search.pipe';
+import { RestUserService } from './services/restUser/rest-user.service';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,8 @@ import { HttpClientModule } from '@angular/common/http';
     LoginComponent,
     StadisticsComponent,
     TeamsComponent,
-    AccountComponent
+    AccountComponent,
+    SearchPipe
   ],
   imports: [
     BrowserModule,
@@ -44,7 +47,9 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    RestUserService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

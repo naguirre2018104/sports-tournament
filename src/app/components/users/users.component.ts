@@ -15,6 +15,7 @@ export class UsersComponent implements OnInit {
   userId: string = "";
   users: any = [];
   roles: Array<String> = ["ROLE_CLIENT", "ROLE_ADMIN"];
+  search: any;
 
   constructor(private restUser: RestUserService) { 
     this.user = new User("", "", "", "", "ROLE_CLIENT", "", [], []);
@@ -91,6 +92,47 @@ export class UsersComponent implements OnInit {
 
   deleteUserInfo(){
     this.user = new User("", "", "", "", "ROLE_CLIENT", "", [], []);
+    this.userId = "";
+  }
+
+  deleteUserByAdmin(user:any){
+    this.setUserInfo(user);
+    let userToDelete:any = this.user;
+    Swal.fire({
+      title: "¿Eliminar usuario " + userToDelete.username + " ?" ,
+      text: "Esta acción no se puede remover",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: "Sí, eliminar",
+      cancelButtonText: "Cancelar",
+    })
+    .then(resultado => {
+        if (resultado.value) {
+          this.restUser.deleteUser(this.userId).subscribe((resp:any)=>{
+            if(resp.user){
+            Swal.fire({
+                icon: 'success',
+                title: 'Usuario eliminado permanente'
+              })
+              this.user = new User("", "", "", "", "ROLE_CLIENT", "", [], []);
+            }
+          },
+           (error:any)=>{
+            Swal.fire({
+              icon: 'error',
+              title: '¡Ups!',
+              text: error.error.message
+            })
+          })
+        }else {
+          this.deleteUserInfo();
+        }
+    });
+  }
+
+  refresh(){
+    this.users = [];
+    this.loadUsers();
   }
 
 }

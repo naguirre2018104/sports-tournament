@@ -7,8 +7,15 @@
                 <button type="button" class="btn btn-lg btn-outline-light text-uppercase" data-bs-toggle="modal" data-bs-target="#createUser">Crear Usuario</button>
             </div>
         </div>
+        <br>
+        <form action="" class="form-inline justify-content-center">
+            <div class="form-group">
+                <input [(ngModel)]="search" type="search" name="search" class="form-control" placeholder="Search by username">
+            </div>
+        </form>
+        <br>
         <div class="overflow-auto maxheight">
-            <div class="card users shadow-sm" *ngFor="let user of users">
+            <div class="card users shadow-sm" *ngFor="let user of users | search:search">
                 <div class="text-center">
                     <img *ngIf="user.img == ''" src="../../../assets/images/user-icon.png" alt="" class="img-fluid userImage rounded-circle" width="100px" height="100px">
                     <img *ngIf="user.img != ''" src="" alt="Imagen de usuario predefinida" class="img-fluid userImage rounded-circle" width="100px" height="100px">
@@ -20,7 +27,7 @@
                     <p class="card-subtitle text-center">{{ user.role }}</p>
                     <div *ngIf="user.role == 'ROLE_CLIENT'" class="card-footer row gap-3">
                         <a class="btn btn-warning col-5" data-bs-toggle="modal" data-bs-target="#updateUser" (click)="setUserInfo(user)"><i class="bi bi-pencil-square"></i></a>
-                        <a class="btn btn-danger col-5" data-bs-toggle="modal" data-bs-target="#deleteUser"><i class="bi bi-trash-fill "></i></a>
+                        <a class="btn btn-danger col-5" (click)="deleteUserByAdmin(user)"><i class="bi bi-trash-fill "></i></a>
                       </div>
                 </div>
             </div>
