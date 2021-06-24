@@ -1,4 +1,4 @@
-<div class="sidebar" *ngIf="false; else user">
+<div class="sidebar" *ngIf="role == 'ROLE_ADMIN' && role != null; else user">
     <app-sidebar></app-sidebar>
     <router-outlet></router-outlet>
 </div>

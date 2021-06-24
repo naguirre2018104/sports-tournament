@@ -3,6 +3,7 @@ import { User } from 'src/app/models/user';
 import { RestUserService } from 'src/app/services/restUser/rest-user.service';
 import { NgForm } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -11,10 +12,13 @@ import Swal from 'sweetalert2';
 })
 export class LoginComponent implements OnInit {
 
-  user: User;
+  public user: User;
+  token: string = "";
+  userLogged: any;
 
-  constructor(private restUser: RestUserService) {
-    this.user = new User("", "", "", "", "ROLE_CLIENT", "", [], [], [])
+
+  constructor(private restUser: RestUserService, private router: Router) {
+    this.user = new User("", "", "", "", "ROLE_CLIENT", "", [], []);
   }
 
   ngOnInit(): void {
@@ -23,20 +27,25 @@ export class LoginComponent implements OnInit {
   onSubmit(login: NgForm){
     this.restUser.login(this.user).subscribe((res:any) => {
       if(res.token){
+        this.userLogged = res.user;
+        delete this.userLogged.password;
+        localStorage.setItem("token",res.token);
+        localStorage.setItem("user",JSON.stringify(this.userLogged));
         Swal.fire({
           icon: 'success',
           title: 'Bienvenido!',
           text: 'Datos correctos'
         })
-      }else {
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: 'Datos incorrectos!',
-          footer: '<a href="">Why do I have this issue?</a>'
-        })
+        this.router.navigateByUrl('home');
       }
+    },
+    (error:any) => 
+    Swal.fire({
+      icon: 'error',
+      title: '¡Ups!',
+      text: error.error.message
     })
+    )
   }
 
 }

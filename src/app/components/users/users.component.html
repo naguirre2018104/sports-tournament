@@ -8,9 +8,20 @@
             </div>
         </div>
         <div class="overflow-auto maxheight">
-            <div class="card users shadow-sm" *ngFor="let item of []">
-                <div class="card-body minheight">
-
+            <div class="card users shadow-sm" *ngFor="let user of users">
+                <div class="text-center">
+                    <img *ngIf="user.img == ''" src="../../../assets/images/user-icon.png" alt="" class="img-fluid userImage rounded-circle" width="100px" height="100px">
+                    <img *ngIf="user.img != ''" src="" alt="Imagen de usuario predefinida" class="img-fluid userImage rounded-circle" width="100px" height="100px">
+                </div>
+                <br>
+                <div class="card-body minheight m0-auto">
+                    <h5 class="card-title text-center">{{ user.username }}</h5><br>
+                    <h6 class="card-title text-center">{{ user.name }} {{ user.lastname }}</h6><br>
+                    <p class="card-subtitle text-center">{{ user.role }}</p>
+                    <div *ngIf="user.role == 'ROLE_CLIENT'" class="card-footer row gap-3">
+                        <a class="btn btn-warning col-5" data-bs-toggle="modal" data-bs-target="#updateUser" (click)="setUserInfo(user)"><i class="bi bi-pencil-square"></i></a>
+                        <a class="btn btn-danger col-5" data-bs-toggle="modal" data-bs-target="#deleteUser"><i class="bi bi-trash-fill "></i></a>
+                      </div>
                 </div>
             </div>
         </div>
@@ -25,35 +36,35 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-
-                <form>
+ 
+                <form #saveUserByAdmin="ngForm" (ngSubmit)="onSubmit(saveUserByAdmin)">
                     <div class="row">
                         <div class="form-group col-md-6">
                             <label for="inputUsername">Nombre de Usuario</label>
-                            <input name="username" type="text" class="form-control" id="inputUsername">
+                            <input [(ngModel)]="user.username" name="username" type="text" class="form-control" id="inputUsername">
                         </div>
                         <div class="form-group col-md-6">
                             <label for="inputPassword">Contraseña</label>
-                            <input name="password" type="password" class="form-control" id="inputPassword">
+                            <input [(ngModel)]="user.password" name="password" type="password" class="form-control" id="inputPassword">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="inputName">Nombre</label>
-                        <input name="name" type="text" class="form-control" id="inputName">
+                        <input [(ngModel)]="user.name" name="name" type="text" class="form-control" id="inputName">
                     </div>
                     <div class="form-group">
                         <label for="inputLastname">Apellido</label>
-                        <input name="lastname" type="text" class="form-control" id="inputLastname">
+                        <input [(ngModel)]="user.lastname" name="lastname" type="text" class="form-control" id="inputLastname">
                     </div>
                     <div class="form-group">
                         <label for="inputRole">Rol</label>
-                        <select name="role" id="inputState" class="form-control">
+                        <select [(ngModel)]="user.role" name="role" id="inputState" class="form-control">
                         <option selected disabled>Elige un tipo de usuario...</option>
-                        <option></option>
+                        <option *ngFor="let roleItem of roles" [value]="roleItem">{{ roleItem }}</option>
                       </select>
                     </div>
                     <div class="modal-footer row">
-                        <button type="submit" class="btn btn-success">Crear</button>
+                        <button type="submit" class="btn btn-success btn-block" [disabled]="!saveUserByAdmin.form.valid">Crear</button>
                     </div>
                 </form>
 
@@ -62,6 +73,55 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Actualizar Usuario -->
+<div class="modal fade" id="updateUser" tabindex="-1" aria-labelledby="updateUserLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="updateUserLabel">Actualizar Usuario</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="deleteUserInfo()"></button>
+            </div>
+            <div class="modal-body">
+ 
+                <form #updateUser="ngForm">
+                    <div class="form-group">
+                        <label for="inputUpdateUsername">Nombre de Usuario</label>
+                        <input [(ngModel)]="user.username" name="username" type="text" class="form-control" id="inputUpdateUsername">
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <div class="form-group">
+                                <label for="inputUpdateName">Nombre</label>
+                                <input [(ngModel)]="user.name" name="name" type="text" class="form-control" id="inputUpdateName">
+                            </div>
+                            <div class="form-group">
+                                <label for="inputUpdateLastname">Apellido</label>
+                                <input [(ngModel)]="user.lastname" name="lastname" type="text" class="form-control" id="inputUpdateLastname">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputUpdateRole">Rol</label>
+                        <select [(ngModel)]="user.role" name="role" id="inputUpdateRole" class="form-control">
+                        <option selected disabled>Elige un tipo de usuario...</option>
+                        <option *ngFor="let roleItem of roles" [value]="roleItem">{{ roleItem }}</option>
+                      </select>
+                    </div>
+                    <div class="modal-footer row">
+                        <button type="submit" class="btn btn-success btn-block" [disabled]="!updateUser.form.valid" (click)="updateUserByAdmin(updateUser)">Actualizar</button>
+                    </div>
+                </form>
+
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="deleteUserInfo()">Cerrar</button>
             </div>
         </div>
     </div>

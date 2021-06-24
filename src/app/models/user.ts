@@ -8,7 +8,6 @@ export class User {
         public role: string,
         public img: string,
         public history: [],
-        public tournamentsUser: [],
-        public tournamentsAdmin: [],
+        public leagues: []
     ){}
 }

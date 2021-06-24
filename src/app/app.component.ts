@@ -7,7 +7,37 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'sports-tournament-manager';
-  token = null;
+  token = localStorage.getItem("token");
+  user;
+  role = null;
 
+  ngOnInit(){
+    this.user = JSON.parse(localStorage.getItem("user")!) || null;
+    this.token = localStorage.getItem('token');
+    if(this.user != null){
+      this.role = this.user.role;
+    }else{
+      this.role = null;
+    }
+  }
 
+  ngDoCheck(){
+    this.user = JSON.parse(localStorage.getItem("user")!) || null;
+    this.token = localStorage.getItem('token');
+    if(this.user != null){
+      this.role = this.user.role;
+    }else{
+      this.role = null;
+    }
+  }
+
+  ngOnChanges(){
+    this.user = JSON.parse(localStorage.getItem("user")!) || null;
+    this.token = localStorage.getItem('token');
+    if(this.user != null){
+      this.role = this.user.role;
+    }else{
+      this.role = null;
+    }
+  }
 }

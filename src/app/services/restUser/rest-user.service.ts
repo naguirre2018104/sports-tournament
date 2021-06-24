@@ -20,6 +20,13 @@ export class RestUserService {
     })
   };
 
+  public httpOptionsAuth = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': this.getToken()
+    })
+  };
+
   private extractData(res: Response){
     let body = res;
     return body || [] || {};
@@ -27,6 +34,13 @@ export class RestUserService {
 
   constructor(private http:HttpClient) {
     this.uri = CONNECTION.URI;
+  }
+
+  getToken(){
+    let token = localStorage.getItem('token')!;
+    this.token = token;
+    
+    return token;
   }
 
   register(user:User){
@@ -38,6 +52,19 @@ export class RestUserService {
   login(user: User){
     let params = JSON.stringify(user);
     return this.http.post<any>(`${this.uri}user/login`, params, this.httpOptions).pipe(map(this.extractData))
+  }
+
+  getUsers(){
+    return this.http.get<any>(`${this.uri}user/getUsers`, this.httpOptions).pipe(map(this.extractData))
+  }
+
+  updateUser(user: User, userId: string){
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + this.getToken()
+    });
+    let params = JSON.stringify(user);
+    return this.http.put<any>(`${this.uri}user/updateUser/${userId}`, params,{headers: headers} ).pipe(map(this.extractData))
   }
 
 }
