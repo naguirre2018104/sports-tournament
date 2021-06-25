@@ -1,13 +1,14 @@
-import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { CONNECTION } from '../global'; 
+import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
-import { User } from '../../models/user';
+import { League } from 'src/app/models/league';
+import { CONNECTION } from '../global';
 
 @Injectable({
   providedIn: 'root'
 })
-export class RestUserService {
+export class RestLeagueService {
+
   public uri:string;
   public user:any;
   public token:any;
@@ -43,44 +44,37 @@ export class RestUserService {
     return token;
   }
 
-  register(user:User){
-    let params = JSON.stringify(user);
-
-    return this.http.post<any>(`${this.uri}user/create`, params, this.httpOptions).pipe(map(this.extractData))
-  }
-
-  login(user: User){
-    let params = JSON.stringify(user);
-    return this.http.post<any>(`${this.uri}user/login`, params, this.httpOptions).pipe(map(this.extractData))
-  }
-
-  getUsers(){
-    return this.http.get<any>(`${this.uri}user/getUsers`, this.httpOptions).pipe(map(this.extractData))
-  }
-
-  updateUser(user: User, userId: string){
+  getLeagues(){
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + this.getToken()
     });
-    let params = JSON.stringify(user);
-    return this.http.put<any>(`${this.uri}user/updateUser/${userId}`, params,{headers: headers} ).pipe(map(this.extractData))
+    return this.http.get<any>(`${this.uri}league/getLeagues`, {headers: headers}).pipe(map(this.extractData))
   }
 
-  deleteUser(userId: string){
+  createLeague(league: League){
+    let params = JSON.stringify(league);
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + this.getToken()
     });
-    return this.http.delete<any>(`${this.uri}user/deleteUser/${userId}`, {headers: headers} ).pipe(map(this.extractData))
+    return this.http.post<any>(`${this.uri}league/create`, params,{headers: headers}).pipe(map(this.extractData))
   }
 
-  getUser(userId: string){
+  updateLeague(league: League, leagueId: string){
+    let params = JSON.stringify(league);
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + this.getToken()
     });
-    return this.http.get<any>(`${this.uri}user/oneUser/${userId}`, {headers: headers} ).pipe(map(this.extractData))
+    return this.http.put<any>(`${this.uri}league/updateLeague/${leagueId}`, params,{headers: headers}).pipe(map(this.extractData))
   }
 
+  deleteLeague(leagueId:string){
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + this.getToken()
+    });
+    return this.http.delete<any>(`${this.uri}league/deleteLeague/${leagueId}`,{headers: headers}).pipe(map(this.extractData))
+  }
 }

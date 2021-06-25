@@ -21,6 +21,7 @@ import { AccountComponent } from './components/account/account.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SearchPipe } from './pipes/search.pipe';
 import { RestUserService } from './services/restUser/rest-user.service';
+import { RestLeagueService } from './services/restLeague/rest-league.service';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { RestUserService } from './services/restUser/rest-user.service';
     HttpClientModule
   ],
   providers: [
-    RestUserService
+    RestUserService,
+    RestLeagueService
   ],
   bootstrap: [AppComponent]
 })

@@ -13,7 +13,7 @@ export class UsersComponent implements OnInit {
 
   user: User;
   userId: string = "";
-  users: any = [];
+  users: Array<User> = [];
   roles: Array<String> = ["ROLE_CLIENT", "ROLE_ADMIN"];
   search: any;
 

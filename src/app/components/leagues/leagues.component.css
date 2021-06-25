@@ -1,3 +1,10 @@
+.main {
+    max-height: 80vh!important;
+    width: 85vw!important;
+    margin: 0 auto!important;
+    height: 80vh!important;
+}
+
 .leagues {
     width: 18rem;
     display: inline-block!important;
@@ -6,4 +13,8 @@
 
 .m0-auto {
     margin: 0 auto;
+}
+
+.maxheight {
+    max-height: 38rem;
 }
