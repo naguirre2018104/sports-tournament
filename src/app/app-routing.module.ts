@@ -13,25 +13,33 @@ import { TournamentsComponent } from './components/tournaments/tournaments.compo
 import { LoginComponent } from './components/login/login.component';
 import { StadisticsComponent } from './components/stadistics/stadistics.component';
 import { AccountComponent } from './components/account/account.component';
+import { AdminGuard } from './guards/admin.guard';
+import { UserGuard } from './guards/user.guard';
 
 const routes: Routes = [
   {
     path: "", redirectTo: "login", pathMatch: "full"
   },
   {
-    path: "league", component: LeagueComponent
+    path: "league", 
+    canActivate:[UserGuard],
+    component: LeagueComponent
   },
   {
-    path: "leagues", component: LeaguesComponent
+    path: "leagues", 
+    canActivate: [UserGuard], 
+    component: LeaguesComponent
   },
   {
     path: "register", component: RegisterComponent
   },
   {
-    path:"account", component: AccountComponent
+    path:"account", canActivate: [UserGuard], component: AccountComponent
   },
   {
-    path: "home", component: HomeComponent
+    path: "home",
+    canActivate:[UserGuard], 
+    component: HomeComponent
   },
   {
     path:"homeAdmin", component: HomeAdminComponent
@@ -40,7 +48,7 @@ const routes: Routes = [
     path:"history", component: HistoryComponent
   },
   {
-    path:"users", component: UsersComponent
+    path:"users", canActivate: [AdminGuard], component: UsersComponent
   },
   {
     path:"tournaments", component: TournamentsComponent
@@ -49,7 +57,11 @@ const routes: Routes = [
     path:"login", component: LoginComponent
   },
   {
-    path:"stadistics", component: StadisticsComponent
+    path:"stadistics", canActivate: [UserGuard], component: StadisticsComponent
+  },
+  {
+    path: '**',
+    component: LoginComponent
   }
 ];
 

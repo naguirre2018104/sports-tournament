@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem("user",JSON.stringify(this.userLogged));
         Swal.fire({
           icon: 'success',
-          title: 'Bienvenido!',
+          title: '¡Bienvenido!',
           text: 'Datos correctos'
         })
         this.router.navigateByUrl('home');

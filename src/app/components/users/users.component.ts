@@ -25,11 +25,15 @@ export class UsersComponent implements OnInit {
     this.loadUsers();
   }
 
+  ngDoCheck(): void{
+    this.users = JSON.parse(localStorage.getItem("users")!);
+  }
+
   loadUsers(){
     this.restUser.getUsers().subscribe((resp: any)=>{
       if(resp.users){
-        this.users = resp.users;
-        console.log(this.users);
+        localStorage.setItem("users",JSON.stringify(resp.users)!);
+        this.users = JSON.parse(localStorage.getItem("users")!);
       }
     },
     (error:any) => 
@@ -42,7 +46,6 @@ export class UsersComponent implements OnInit {
   }
 
   onSubmit(saveUserByAdmin: NgForm){
-    console.log(this.user);
     this.restUser.register(this.user).subscribe((resp:any)=>{
       if(resp.user){
         Swal.fire({
@@ -50,6 +53,8 @@ export class UsersComponent implements OnInit {
           title: 'Usuario creado exitosamente'
         })
         saveUserByAdmin.reset();
+        this.users.push(resp.user);
+        localStorage.setItem("users",JSON.stringify(this.users)!);
       }
     },
     (error:any)=>
@@ -73,6 +78,7 @@ export class UsersComponent implements OnInit {
           title: 'Usuario actualizado exitosamente'
         })
         updateUser.reset();
+        this.loadUsers();
         this.user = new User("", "", "", "", "ROLE_CLIENT", "", [], []);
       }
     },
@@ -110,10 +116,12 @@ export class UsersComponent implements OnInit {
         if (resultado.value) {
           this.restUser.deleteUser(this.userId).subscribe((resp:any)=>{
             if(resp.user){
-            Swal.fire({
+              Swal.fire({
                 icon: 'success',
                 title: 'Usuario eliminado permanente'
               })
+              this.users = resp.user;
+              this.loadUsers();
               this.user = new User("", "", "", "", "ROLE_CLIENT", "", [], []);
             }
           },
@@ -129,10 +137,4 @@ export class UsersComponent implements OnInit {
         }
     });
   }
-
-  refresh(){
-    this.users = [];
-    this.loadUsers();
-  }
-
 }
