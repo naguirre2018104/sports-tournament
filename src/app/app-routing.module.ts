@@ -54,14 +54,16 @@ const routes: Routes = [
     path:"tournaments", component: TournamentsComponent
   },
   {
-    path:"login", component: LoginComponent
+    path:"login",
+    //canActivate:[UserGuard],  
+    component: LoginComponent
   },
   {
     path:"stadistics", canActivate: [UserGuard], component: StadisticsComponent
   },
   {
     path: '**',
-    component: LoginComponent
+    redirectTo: 'login'
   }
 ];
 

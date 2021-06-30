@@ -18,7 +18,7 @@ export class LeaguesComponent implements OnInit {
   leagueId: string = "";
 
   constructor(private restLeague: RestLeagueService, private restUser: RestUserService) { 
-    this.league = new League("",[],[]);
+    this.league = new League("",[],[],[]);
   }
 
   ngOnInit(): void {
@@ -62,6 +62,7 @@ export class LeaguesComponent implements OnInit {
     let leagueToCreate:any = this.league;
     delete leagueToCreate.teams;
     delete leagueToCreate.reports;
+    delete leagueToCreate.journey;
     this.restLeague.createLeague(this.league).subscribe((resp:any)=>{
       if(resp.league){
         Swal.fire({
@@ -89,7 +90,7 @@ export class LeaguesComponent implements OnInit {
   }
 
   deleteLeagueInfo(){
-    this.league = new League("",[],[]);
+    this.league = new League("",[],[],[]);
     this.leagueId = "";
   }
 
@@ -97,6 +98,7 @@ export class LeaguesComponent implements OnInit {
     let leagueToUpdate:any = this.league;
     delete leagueToUpdate.teams;
     delete leagueToUpdate.reports;
+    delete leagueToUpdate.journey;
     delete leagueToUpdate.__v;
     delete leagueToUpdate._id;
     this.restLeague.updateLeague(leagueToUpdate,this.leagueId).subscribe((resp:any)=>{
@@ -172,6 +174,10 @@ export class LeaguesComponent implements OnInit {
     }else{
       this.loadLeaguesByAdmin();
     }
+  }
+
+  sendLeagueInfo(league: League){
+    localStorage.setItem("league",JSON.stringify(league)!);
   }
 
 }

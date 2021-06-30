@@ -1,8 +1,8 @@
 <div class="container pt-4">
     <div class="jumbotron p-2 ps-4 pe-4 bg-info shadow border border-2 rounded">
-        <p class="display-4 fw-bolder text-dark m-0">Liga BBVA</p>
-        <div class="d-flex gap-2 pt-2 pb-2">
-            <a class="btn btn-dark btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal">Crear Equipo</a>
+        <p class="display-4 fw-bolder text-dark m-0">Liga "{{ league.name }}"</p>
+         <div class="d-flex gap-2 pt-2 pb-2">
+            <a class="btn btn-dark btn-lg" data-bs-toggle="modal" data-bs-target="#createTeam">Crear Equipo</a>
             <a class="btn btn-secondary btn-lg" data-bs-toggle="modal" data-bs-target="#modalCreateMarker">Resultados Jornada</a>
             <a class="btn btn-success btn-lg">Ver tabla</a>
             <a class="btn btn-light btn-lg">Mostrar Graficas</a>
@@ -11,28 +11,32 @@
 </div>
 
 <!-- Teams -->
-<app-teams></app-teams>
-
+    <div class="overflow-auto maxheight" *ngIf="league.teams.length != 0 && league != null; else noData">
+        <app-teams></app-teams>
+    </div>
+    <ng-template #noData>
+        <h2 class="text-muted text-center">No hay nada aquí</h2>
+    </ng-template>
 
 <!-- Modal Create Team -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="createTeam" tabindex="-1" aria-labelledby="createTeamLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Crear Equipo</h5>
+                <h5 class="modal-title" id="createTeamLabel">Crear Equipo</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form class="modal-body" #leagueForm="ngForm" (ngSubmit)="onSubmit(leagueForm)">
+            <form class="modal-body" #teamForm="ngForm" (ngSubmit)="onSubmit(teamForm)">
                 <div class="mb-3">
-                    <label for="name" class="form-label">Ingresa el nombre del equipo:</label>
-                    <input class="form-control" type="text" name="name" id="name" placeholder="Equipo" required>
+                    <label for="teamName" class="form-label">Ingresa el nombre del equipo:</label>
+                    <input [(ngModel)]="team.name" class="form-control" type="text" name="name" id="teamName" placeholder="Equipo" required>
                 </div>
                 <div class="mb-3">
-                    <label for="image" class="form-label">Elija una imagen:</label>
-                    <input class="form-control" type="file" name="image" id="image" placeholder="Imagen" required>
+                    <label for="teamImage" class="form-label">Elija una imagen:</label>
+                    <input class="form-control" type="file" name="image" id="teamImage" placeholder="Imagen" required (change)="fileChange($event)">
                 </div>
                 <div class="mb-3 d-grid gap-2">
-                    <button class="btn btn-success" type="submit" [disabled]="!leagueForm.form.valid">Crear</button>
+                    <button class="btn btn-success" type="submit" [disabled]="!teamForm.form.valid">Crear</button>
                 </div>
             </form>
             <div class="modal-footer">

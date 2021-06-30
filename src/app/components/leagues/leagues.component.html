@@ -7,7 +7,7 @@
         <br>
         <div class="overflow-auto maxheight" *ngIf="leagues.length != 0 && leagues != null; else noData">
             <div class="card shadow-sm leagues bg-light col-1 p-1" style="width: 18rem;" *ngFor="let league of leagues">
-                <img src="./../../../assets/images/soccer.jpg" class="card-img-top" alt="..." routerLink="/league">
+                <img src="./../../../assets/images/soccer.jpg" class="card-img-top" alt="..." (click)="sendLeagueInfo(league)" routerLink="/league">
                 <div class="card-body position-relative">
                     <h5 class="card-title fw-bolder mb-2 text-center">{{ league.name }}</h5>
                     <hr>
