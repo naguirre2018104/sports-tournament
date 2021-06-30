@@ -30,7 +30,6 @@ export class LoginComponent implements OnInit {
       if(res.token){
 
         delete res.user.password;
-        delete res.user.leagues;
         delete res.user.tournamentsAdmin;
         delete res.user.tournamentsUser;
 

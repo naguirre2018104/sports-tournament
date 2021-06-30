@@ -145,7 +145,7 @@ export class LeaguesComponent implements OnInit {
               this.deleteLeagueInfo();
             }
           },
-           (error:any)=>{
+            (error:any)=>{
             Swal.fire({
               icon: 'error',
               title: '¡Ups!',
