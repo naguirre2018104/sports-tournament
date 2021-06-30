@@ -27,6 +27,7 @@ export class LeaguesComponent implements OnInit {
     }else{
       this.loadLeaguesByUser();
     }
+    console.log(this.leagues);
   }
 
   ngDoCheck(): void{

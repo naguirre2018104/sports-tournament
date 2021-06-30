@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CONNECTION } from '../global'; 
 import { map } from 'rxjs/operators';
 import { User } from '../../models/user';
+import { UserInterface } from '../../interfaces/user';
 
 @Injectable({
   providedIn: 'root'
@@ -43,6 +44,13 @@ export class RestUserService {
     return token;
   }
 
+  async getUserLS(){
+    let user = await JSON.parse(<any>(localStorage.getItem('user')));
+    this.user = (user != null || user != undefined)? user : null;
+
+    return this.user
+  }
+
   register(user:User){
     let params = JSON.stringify(user);
 
@@ -64,7 +72,7 @@ export class RestUserService {
       'Authorization': 'Bearer ' + this.getToken()
     });
     let params = JSON.stringify(user);
-    return this.http.put<any>(`${this.uri}user/updateUser/${userId}`, params,{headers: headers} ).pipe(map(this.extractData))
+    return this.http.put<any>(`${this.uri}user/${userId}`, params,{headers: headers} ).pipe(map(this.extractData))
   }
 
   deleteUser(userId: string){
