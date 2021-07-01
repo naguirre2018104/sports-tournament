@@ -9,7 +9,11 @@
             </div>
             <div class="mb-3 col-sm-8">
                 <label for="password" class="form-label text-black-50 fw-bolder">Contraseña</label>
-                <input type="password" name="password" id="password" class="form-control">
+                <br>
+                <input type="password" name="password" id="password" class="form-control" placeholder="Añade una nueva contraseña">
+                <br>
+                <input type="password" name="password" id="password" class="form-control" placeholder="Confirma tu nueva contraseña">
+                <!-- <button class="btn btn-info text-white">Agrega nueva contraseña</button> -->
             </div>
             <div class="mb-3 col-sm-8">
                 <label for="name" class="form-label text-black-50 fw-bolder">Nombre</label>
@@ -35,10 +39,60 @@
         <hr>
         <br>
         <div class="d-flex justify-content-around">
-            <button type="submit" class="btn btn-primary col-sm-3" [disabled]="!myAccountForm.form.valid">Actualizar Datos</button>
+            <button type="submit" class="btn btn-primary col-sm-3" data-bs-toogle="modal" data-bs-target="#createUser" [disabled]="!myAccountForm.form.valid">Actualizar Datos</button>
             <button type="button" class="btn btn-outline-danger col-sm-3">Eliminar Cuenta</button>
         </div>
 
     </form>
 
+</div>
+
+<!-- Modal Crear Usuario -->
+<div class="modal fade" id="createUser" tabindex="-1" aria-labelledby="createUserLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createUserLabel">Crear Usuario</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <form #saveUserByAdmin="ngForm">
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="inputUsername">Nombre de Usuario</label>
+                            <input name="username" type="text" class="form-control" id="inputUsername">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputPassword">Contraseña</label>
+                            <input name="password" type="password" class="form-control" id="inputPassword">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputName">Nombre</label>
+                        <input name="name" type="text" class="form-control" id="inputName">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputLastname">Apellido</label>
+                        <input name="lastname" type="text" class="form-control" id="inputLastname">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputRole">Rol</label>
+                        <select name="role" id="inputState" class="form-control">
+                            <option selected disabled>Elige un tipo de usuario...</option>
+                        </select>
+                    </div>
+                    <div class="modal-footer row">
+                        <button type="submit" class="btn btn-success btn-block" [disabled]="!saveUserByAdmin.form.valid">Crear</button>
+                    </div>
+                </form>
+
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
 </div>

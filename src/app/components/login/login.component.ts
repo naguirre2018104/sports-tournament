@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
           title: '¡Bienvenido!',
           text: 'Datos correctos'
         }).then(() => {
-          this.router.navigateByUrl('home');
+          this.router.navigateByUrl('home#carouselExampleIndicators');
         });
         
       }

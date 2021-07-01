@@ -11,7 +11,6 @@ import { FormsModule } from '@angular/forms';
 import { LeaguesComponent } from './components/leagues/leagues.component';
 import { RegisterComponent } from './components/register/register.component';
 import { HomeAdminComponent } from './components/home-admin/home-admin.component';
-import { HistoryComponent } from './components/history/history.component';
 import { UsersComponent } from './components/users/users.component';
 import { TournamentsComponent } from './components/tournaments/tournaments.component';
 import { LoginComponent } from './components/login/login.component';
@@ -33,7 +32,6 @@ import { RestLeagueService } from './services/restLeague/rest-league.service';
     LeaguesComponent,
     RegisterComponent,
     HomeAdminComponent,
-    HistoryComponent,
     UsersComponent,
     TournamentsComponent,
     LoginComponent,

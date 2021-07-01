@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CONNECTION } from '../global'; 
-import { map } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 import { User } from '../../models/user';
-import { UserInterface } from '../../interfaces/user';
+import Swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root'
@@ -54,7 +55,14 @@ export class RestUserService {
   register(user:User){
     let params = JSON.stringify(user);
 
-    return this.http.post<any>(`${this.uri}user/create`, params, this.httpOptions).pipe(map(this.extractData))
+    return this.http.post<any>(`${this.uri}user/create`, params, this.httpOptions).pipe(map(this.extractData), catchError((err) => {
+      Swal.fire({
+        icon: 'success',
+        title: '¡Bienvenido!',
+        text: err.error.message
+      })
+      return throwError(err.error.message)
+    }));
   }
 
   login(user: User){

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, DoCheck } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { League } from 'src/app/models/league';
 import { Team } from 'src/app/models/team';
@@ -11,10 +11,11 @@ import Swal from 'sweetalert2';
   templateUrl: './league.component.html',
   styleUrls: ['./league.component.css']
 })
-export class LeagueComponent implements OnInit {
+export class LeagueComponent implements OnInit, DoCheck {
 
   league: League;
   team: Team;
+  teamsLeague: Array<Team> = [];
   filesImage: Array<File> = [];
 
   constructor(private restLeague: RestLeagueService, private restTeam: RestTeamService) { 
@@ -23,6 +24,23 @@ export class LeagueComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    let league = JSON.parse(localStorage.getItem("league")!);
+    this.restLeague.getLeague(league._id).subscribe((resp: any)=>{
+      if(resp.league){
+        localStorage.setItem("league",JSON.stringify(resp.league));
+        this.league = JSON.parse(localStorage.getItem("league")!);
+        this.teamsLeague = this.league.teams;
+      }else{
+        Swal.fire({
+          icon: 'error',
+          title: '¡Ups!',
+          text: "Error al obtener datos"
+        })
+      }
+    })
+  }
+
+  ngDoCheck(): void {
     this.league = JSON.parse(localStorage.getItem("league")!);
   }
 
@@ -47,6 +65,7 @@ export class LeagueComponent implements OnInit {
                 })
                 teamForm.reset();
                 this.restLeague.getLeague(league._id).subscribe((resp: any)=>{
+                  console.log(resp);
                   if(resp.league){
                     localStorage.setItem("league",JSON.stringify(resp.league));
                   }else{

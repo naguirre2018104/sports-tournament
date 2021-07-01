@@ -7,7 +7,6 @@ import { LeaguesComponent } from './components/leagues/leagues.component';
 import { RegisterComponent } from './components/register/register.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { HomeAdminComponent } from './components/home-admin/home-admin.component';
-import { HistoryComponent } from './components/history/history.component';
 import { UsersComponent } from './components/users/users.component';
 import { TournamentsComponent } from './components/tournaments/tournaments.component';
 import { LoginComponent } from './components/login/login.component';
@@ -43,9 +42,6 @@ const routes: Routes = [
   },
   {
     path:"homeAdmin", component: HomeAdminComponent
-  },
-  {
-    path:"history", component: HistoryComponent
   },
   {
     path:"users", canActivate: [AdminGuard], component: UsersComponent
