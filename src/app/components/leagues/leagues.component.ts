@@ -27,7 +27,6 @@ export class LeaguesComponent implements OnInit {
     }else{
       this.loadLeaguesByUser();
     }
-    console.log(this.leagues);
   }
 
   ngDoCheck(): void{
@@ -57,6 +56,7 @@ export class LeaguesComponent implements OnInit {
   loadLeaguesByUser(){
     let user = JSON.parse(localStorage.getItem("user")!);
     this.leagues = user.leagues;
+    localStorage.setItem("leagues",JSON.stringify(user.leagues)!);
   }
 
   onSubmit(leagueForm: NgForm){
