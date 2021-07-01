@@ -72,7 +72,7 @@ export class RestUserService {
       'Authorization': 'Bearer ' + this.getToken()
     });
     let params = JSON.stringify(user);
-    return this.http.put<any>(`${this.uri}user/${userId}`, params,{headers: headers} ).pipe(map(this.extractData))
+    return this.http.put<any>(`${this.uri}user/updateUser/${userId}`, params,{headers: headers} ).pipe(map(this.extractData))
   }
 
   deleteUser(userId: string){
