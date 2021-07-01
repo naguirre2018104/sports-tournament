@@ -4,6 +4,7 @@ import { RestUserService } from 'src/app/services/restUser/rest-user.service';
 import { NgForm } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { UserInterface } from '../../interfaces/user';
 
 @Component({
   selector: 'app-login',
@@ -27,16 +28,24 @@ export class LoginComponent implements OnInit {
   onSubmit(login: NgForm){
     this.restUser.login(this.user).subscribe((res:any) => {
       if(res.token){
-        this.userLogged = res.user;
-        delete this.userLogged.password;
+
+        delete res.user.password;
+        delete res.user.tournamentsAdmin;
+        delete res.user.tournamentsUser;
+
+        this.userLogged = JSON.stringify(res.user);
+
         localStorage.setItem("token",res.token);
-        localStorage.setItem("user",JSON.stringify(this.userLogged));
+        localStorage.setItem("user", this.userLogged);
+
         Swal.fire({
           icon: 'success',
           title: '¡Bienvenido!',
           text: 'Datos correctos'
-        })
-        this.router.navigateByUrl('home');
+        }).then(() => {
+          this.router.navigateByUrl('home');
+        });
+        
       }
     },
     (error:any) => 

@@ -27,6 +27,7 @@ export class LeaguesComponent implements OnInit {
     }else{
       this.loadLeaguesByUser();
     }
+    console.log(this.leagues);
   }
 
   ngDoCheck(): void{
@@ -144,7 +145,7 @@ export class LeaguesComponent implements OnInit {
               this.deleteLeagueInfo();
             }
           },
-           (error:any)=>{
+            (error:any)=>{
             Swal.fire({
               icon: 'error',
               title: '¡Ups!',

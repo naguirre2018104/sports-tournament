@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CONNECTION } from '../global'; 
 import { map } from 'rxjs/operators';
 import { User } from '../../models/user';
+import { UserInterface } from '../../interfaces/user';
 
 @Injectable({
   providedIn: 'root'
@@ -41,6 +42,13 @@ export class RestUserService {
     this.token = token;
     
     return token;
+  }
+
+  async getUserLS(){
+    let user = await JSON.parse(<any>(localStorage.getItem('user')));
+    this.user = (user != null || user != undefined)? user : null;
+
+    return this.user
   }
 
   register(user:User){
