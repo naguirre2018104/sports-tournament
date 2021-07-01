@@ -28,18 +28,51 @@ export class LeagueComponent implements OnInit {
 
   onSubmit(teamForm: NgForm){
     let league = JSON.parse(localStorage.getItem("league")!)
-    console.log(this.team);
-    this.restTeam.createTeam(this.team,league._id).subscribe((resp:any)=>{
-      if(resp.team){
-        let teamId = resp.team._id;
-        this.restTeam.addTeamImage(teamId,[],this.filesImage,"image").then((resp:any)=>{
+    if(this.filesImage.length == 0 || null || undefined){
+      Swal.fire({
+        icon: 'error',
+        title: '¡No hay imagen!',
+        text: "Debe ingresar una imagen para poder agregar el equipo"
+      })
+    }else{
+      if(league.teams.length < 10){
+        this.restTeam.createTeam(this.team,league._id).subscribe((resp:any)=>{
           if(resp.team){
-            Swal.fire({
-              icon: 'success',
-              title: 'Equipo creado exitosamente'
-            })
-            console.log(resp.team);
-            teamForm.reset();
+            let teamId = resp.team._id;
+            this.restTeam.addTeamImage(teamId,[],this.filesImage,"img").then((resp:any)=>{
+              if(resp.team){
+                Swal.fire({
+                  icon: 'success',
+                  title: 'Equipo creado exitosamente'
+                })
+                teamForm.reset();
+                this.restLeague.getLeague(league._id).subscribe((resp: any)=>{
+                  if(resp.league){
+                    localStorage.setItem("league",JSON.stringify(resp.league));
+                  }else{
+                    Swal.fire({
+                      icon: 'error',
+                      title: '¡Ups!',
+                      text: "Error al refrescar"
+                    })
+                  }
+                })
+              }else{
+                Swal.fire({
+                  icon: 'error',
+                  title: '¡Ups!',
+                  text: resp.message
+                })
+              }
+            },
+            (error: any) =>{
+              Swal.fire({
+                icon: 'error',
+                title: '¡Ups!',
+                text: error.error.message
+              })
+            }
+            )
           }
         },
         (error: any) =>{
@@ -50,16 +83,14 @@ export class LeagueComponent implements OnInit {
           })
         }
         )
+      }else{
+        Swal.fire({
+          icon: 'warning',
+          title: '¡Ups!',
+          text: "Una liga no puede tener más de 10 equipos"
+        })
       }
-    },
-    (error: any) =>{
-      Swal.fire({
-        icon: 'error',
-        title: '¡Ups!',
-        text: error.error.message
-      })
     }
-    )
   }
 
   createMatchDay(match_dayForm: NgForm){
@@ -68,6 +99,9 @@ export class LeagueComponent implements OnInit {
 
   fileChange(fileInput){
     this.filesImage = <Array<File>>fileInput.target.files;
-    console.log(this.filesImage);
+    Swal.fire({
+      icon: 'success',
+      title: 'Imagen cargada'
+    })
   }
 }

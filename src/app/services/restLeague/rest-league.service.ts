@@ -77,4 +77,12 @@ export class RestLeagueService {
     });
     return this.http.delete<any>(`${this.uri}league/deleteLeague/${leagueId}`,{headers: headers}).pipe(map(this.extractData))
   }
+
+  getLeague(leagueId: string){
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + this.getToken()
+    });
+    return this.http.get<any>(`${this.uri}league/oneLeague/${leagueId}`,{headers: headers}).pipe(map(this.extractData))
+  }
 }

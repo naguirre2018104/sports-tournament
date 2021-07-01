@@ -33,7 +33,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="teamImage" class="form-label">Elija una imagen:</label>
-                    <input class="form-control" type="file" name="image" id="teamImage" placeholder="Imagen" required (change)="fileChange($event)">
+                    <input class="form-control" type="file" name="img" id="teamImage" placeholder="Imagen" required (change)="fileChange($event)">
                 </div>
                 <div class="mb-3 d-grid gap-2">
                     <button class="btn btn-success" type="submit" [disabled]="!teamForm.form.valid">Crear</button>

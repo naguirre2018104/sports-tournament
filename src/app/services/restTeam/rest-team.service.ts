@@ -52,14 +52,10 @@ export class RestTeamService {
   }
 
   addTeamImage(teamId: string, params: Array<string>, image: Array<File>, name:string){
-    let headers = new HttpHeaders({
-      'Content-Type': 'image',
-      'Authorization': 'Bearer ' + this.getToken()
-    });
     return new Promise((resolve,reject)=>{
       var formData: any = new FormData();
       var xhr = new XMLHttpRequest();
-      let uri = this.uri + "team/updateImage/" + teamId + "/image";
+      let uri = this.uri + "team/uploadTeamImage/" + teamId;
       
       for(var i = 0; i < image.length; i++){
         formData.append(name, image[i], image[i].name);
@@ -76,9 +72,25 @@ export class RestTeamService {
       }
 
       xhr.open("PUT",uri,true); // El último true es para afirmar que sea asíncrona.
-      xhr.setRequestHeader('Content-Type','image');
       xhr.setRequestHeader('Authorization','Bearer ' + this.getToken());
       xhr.send(formData);
     })
+  }
+
+  updateTeam(team: Team,teamId: string){
+    let params = JSON.stringify(team);
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + this.getToken()
+    });
+    return this.http.put<any>(`${this.uri}team/updateTeam/${teamId}`, params,{headers: headers}).pipe(map(this.extractData))
+  }
+
+  deleteTeam(teamId: string, leagueId: string){
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + this.getToken()
+    });
+    return this.http.delete<any>(`${this.uri}team/deleteTeam/${teamId}/${leagueId}`,{headers: headers}).pipe(map(this.extractData))
   }
 }
