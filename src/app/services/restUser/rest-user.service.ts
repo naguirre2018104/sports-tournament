@@ -99,4 +99,31 @@ export class RestUserService {
     return this.http.get<any>(`${this.uri}user/oneUser/${userId}`, {headers: headers} ).pipe(map(this.extractData))
   }
 
+  addImageUser(userId: string, params: Array<string>, image: Array<File>, nmae: string){
+    return new Promise((resolve, reject) => {
+      let formData: any = new FormData();
+      let xhr = new XMLHttpRequest();
+      let uri = this.uri + "";
+
+
+      for (let index = 0; index < image.length; index++) {
+        formData.append(name, image[index], image[index].name);
+      }
+
+      xhr.onreadystatechange = () => {
+        if(xhr.readyState == 4){
+          if(xhr.status == 200){
+            resolve(JSON.parse(xhr.response));
+          }else {
+            reject(xhr.response);
+          }
+        }
+      }
+
+      xhr.open('PUT', uri, true);
+      xhr.setRequestHeader('Authorization', 'Bearer' + this.getToken());
+      xhr.send(formData);
+    })
+  }
+
 }

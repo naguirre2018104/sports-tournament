@@ -8,14 +8,6 @@
                 <input [(ngModel)]="myAccount.username" type="text" name="username" id="username" class="form-control">
             </div>
             <div class="mb-3 col-sm-8">
-                <label for="password" class="form-label text-black-50 fw-bolder">Contraseña</label>
-                <br>
-                <input type="password" name="password" id="password" class="form-control" placeholder="Añade una nueva contraseña">
-                <br>
-                <input type="password" name="password" id="password" class="form-control" placeholder="Confirma tu nueva contraseña">
-                <!-- <button class="btn btn-info text-white">Agrega nueva contraseña</button> -->
-            </div>
-            <div class="mb-3 col-sm-8">
                 <label for="name" class="form-label text-black-50 fw-bolder">Nombre</label>
                 <input [(ngModel)]="myAccount.name" type="name" name="name" id="name" class="form-control">
             </div>
@@ -39,56 +31,67 @@
         <hr>
         <br>
         <div class="d-flex justify-content-around">
-            <button type="submit" class="btn btn-primary col-sm-3" data-bs-toogle="modal" data-bs-target="#createUser" [disabled]="!myAccountForm.form.valid">Actualizar Datos</button>
-            <button type="button" class="btn btn-outline-danger col-sm-3">Eliminar Cuenta</button>
+            <button type="submit" class="btn btn-primary col-sm-3" [disabled]="!myAccountForm.form.valid">Actualizar Datos</button>
         </div>
-
     </form>
-
+    <br>
+    <br>
 </div>
 
-<!-- Modal Crear Usuario -->
-<div class="modal fade" id="createUser" tabindex="-1" aria-labelledby="createUserLabel" aria-hidden="true">
+<div class="container fluid bg-light p-4 mt-4 mb-4 border border-white shadow-sm border-3 bg-custom">
+    <form #updatePassword="ngForm" (ngSubmit)="updateMyAccount(myAccountForm)" class="row responsiveC mt-4">
+        <p class="fs-1 fw-bolder">Configuración de Privacidad</p>
+        <div class="col-6">
+            <div class="mb-3 col-sm-8">
+                <label for="password" class="form-label text-black-50 fw-bolder">Contraseña</label>
+                <input type="password" name="password" id="password" class="form-control mb-2" placeholder="Contraseña actual">
+                <input type="password" name="password" id="password" class="form-control mb-2" placeholder="Añade una nueva contraseña">
+                <input type="password" name="password" id="password" class="form-control mb-2" placeholder="Confirma tu nueva contraseña">
+            </div>
+        </div>
+
+        <br>
+        <hr>
+        <br>
+        <div class="d-flex justify-content-around">
+            <button type="submit" class="btn btn-outline-warning col-sm-3" [disabled]="!updatePassword.form.valid">Actualizar Datos</button>
+        </div>
+    </form>
+</div>
+
+
+<div class="container fluid bg-light p-4 mt-4 mb-4 border border-white shadow-sm border-3 bg-custom">
+    <div class="row responsiveC mt-4">
+        <p class="fs-1 fw-bolder">Eliminar Cuenta</p>
+        <div class="col-6">
+            <div class="mb-3 col-sm-8">
+                <p>Esta accion es irreversible</p>
+            </div>
+        </div>
+        <br>
+        <hr>
+        <br>
+        <div class="d-flex justify-content-around">
+            <button type="button" class="btn btn-outline-danger col-sm-3" data-bs-toggle="modal" data-bs-target="#deleteAccountUserModal">Eliminar cuenta</button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Confirmacion de eliminar cuenta -->
+<div class="modal fade" id="deleteAccountUserModal" tabindex="-1" aria-labelledby="deleteAccountUserLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="createUserLabel">Crear Usuario</h5>
+                <h5 class="modal-title" id="deleteAccountUserLabel">Eliminar Cuenta de Usuario</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-
-                <form #saveUserByAdmin="ngForm">
-                    <div class="row">
-                        <div class="form-group col-md-6">
-                            <label for="inputUsername">Nombre de Usuario</label>
-                            <input name="username" type="text" class="form-control" id="inputUsername">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="inputPassword">Contraseña</label>
-                            <input name="password" type="password" class="form-control" id="inputPassword">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputName">Nombre</label>
-                        <input name="name" type="text" class="form-control" id="inputName">
-                    </div>
-                    <div class="form-group">
-                        <label for="inputLastname">Apellido</label>
-                        <input name="lastname" type="text" class="form-control" id="inputLastname">
-                    </div>
-                    <div class="form-group">
-                        <label for="inputRole">Rol</label>
-                        <select name="role" id="inputState" class="form-control">
-                            <option selected disabled>Elige un tipo de usuario...</option>
-                        </select>
-                    </div>
-                    <div class="modal-footer row">
-                        <button type="submit" class="btn btn-success btn-block" [disabled]="!saveUserByAdmin.form.valid">Crear</button>
-                    </div>
-                </form>
-
-
-
+                <p class="fs-1 text-danger">¡Cuidado!</p>
+                <p class="fs-4 text-danger text-uppercase">¿Seguro que deseas eliminar tu cuenta permanentemente?</p>
+                <p class="fs-4 text-uppercase">Esta acción no se puede deshacer</p>
+                <div class="mb-3 d-grid">
+                    <button class="btn btn-danger" (click)="deleteAccountUser()">ELIMINAR MI CUENTA</button>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>

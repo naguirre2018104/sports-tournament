@@ -2,6 +2,7 @@ import { Component, OnInit, DoCheck } from '@angular/core';
 import { RestUserService } from '../../services/restUser/rest-user.service';
 import { NgForm } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-account',
@@ -12,7 +13,7 @@ export class AccountComponent implements OnInit {
 
   myAccount: any;
 
-  constructor(private resUser: RestUserService) {}
+  constructor(private resUser: RestUserService, private router: Router) {}
 
   ngOnInit() {
     this.myAccount = this.resUser.getUserLS().then(user => {
@@ -46,6 +47,30 @@ export class AccountComponent implements OnInit {
         });
       }
     })
+  }
+
+  deleteAccountUser(){
+    let userId = this.myAccount._id || null;
+
+    this.resUser.deleteUser(userId).subscribe((resp:any) => {
+      if(resp.user){
+        Swal.fire({
+          icon: 'success',
+          title: 'Cuenta Eliminada!',
+          text: 'Fue un gusto que usaras esta aplicación :)'
+        }).then(() => {
+          localStorage.clear();
+          this.router.navigateByUrl('')
+        })
+      }else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Ups!',
+          text: 'Algo salió mal :('
+        });
+      }
+    })
+
   }
 
 }

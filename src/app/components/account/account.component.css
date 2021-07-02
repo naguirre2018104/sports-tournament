@@ -22,3 +22,12 @@ img {
 .bg-custom {
     background-color: rgb(240, 241, 255)!important;
 }
+
+a {
+    text-decoration: none;
+    align-items: center;
+}
+
+a:hover {
+    cursor: pointer;
+}
