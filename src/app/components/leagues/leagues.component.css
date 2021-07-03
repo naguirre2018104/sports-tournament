@@ -18,3 +18,7 @@
 .maxheight {
     max-height: 38rem;
 }
+
+.mt-custom {
+    margin-top: 7rem!important;
+}

@@ -5,16 +5,22 @@
     height: 100vh!important;
 }
 
-table{
+table {
     border-spacing: 10px;
     border-collapse: collapse;
 }
 
-tr{
+tr {
     border-bottom: 1px solid black;
 }
 
-table, th, td{
+table,
+th,
+td {
     border: 9px;
     width: 50%;
+}
+
+.mt-custom {
+    margin-top: 7rem!important;
 }

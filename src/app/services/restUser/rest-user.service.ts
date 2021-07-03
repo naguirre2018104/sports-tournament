@@ -67,7 +67,14 @@ export class RestUserService {
 
   login(user: User){
     let params = JSON.stringify(user);
-    return this.http.post<any>(`${this.uri}user/login`, params, this.httpOptions).pipe(map(this.extractData))
+    return this.http.post<any>(`${this.uri}user/login`, params, this.httpOptions).pipe(map(this.extractData), catchError((err) => {
+      Swal.fire({
+        icon: 'error',
+        title: 'Upps!',
+        text: err.error.message
+      })
+      return throwError(err.error.message)
+    }))
   }
 
   getUsers(){
@@ -99,16 +106,17 @@ export class RestUserService {
     return this.http.get<any>(`${this.uri}user/oneUser/${userId}`, {headers: headers} ).pipe(map(this.extractData))
   }
 
-  addImageUser(userId: string, params: Array<string>, image: Array<File>, nmae: string){
+  addImageUser(userId: string, params: Array<string>, files: Array<File>, name: string){
     return new Promise((resolve, reject) => {
       let formData: any = new FormData();
       let xhr = new XMLHttpRequest();
-      let uri = this.uri + "";
+      let uri = `${this.uri}user/uploadUserImage/${userId}`;
 
-
-      for (let index = 0; index < image.length; index++) {
-        formData.append(name, image[index], image[index].name);
+      for (let i = 0; i < files.length; i++) {
+        formData.append(name, files[i], files[i].name);
       }
+
+      console.log(formData);
 
       xhr.onreadystatechange = () => {
         if(xhr.readyState == 4){
@@ -119,9 +127,9 @@ export class RestUserService {
           }
         }
       }
-
-      xhr.open('PUT', uri, true);
-      xhr.setRequestHeader('Authorization', 'Bearer' + this.getToken());
+      console.log(formData);
+      xhr.open("PUT",uri,true); 
+      xhr.setRequestHeader('Authorization','Bearer ' + this.getToken());
       xhr.send(formData);
     })
   }
