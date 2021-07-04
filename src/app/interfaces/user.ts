@@ -9,3 +9,11 @@ export interface UserInterface{
     history?: [],
     role?: []
 }
+
+export interface UpdateUserPasswordInterface{
+    _id?: string,
+    current?: string,
+    new?: string,
+    confirmNew?: string
+    // cNew?: string,
+}

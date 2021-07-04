@@ -41,21 +41,21 @@
 </div>
 
 <div class="container fluid bg-light p-4 pt-0 mt-4 mb-4 border border-white shadow-sm border-3 bg-custom">
-    <form #updatePassword="ngForm" (ngSubmit)="updateMyAccount(myAccountForm)" class="d-flex responsiveC mt-4 p-4 text-center">
+    <form #updatePasswordForm="ngForm" (ngSubmit)="updatePassword(updatePasswordForm)" class="d-flex responsiveC mt-4 p-4 text-center">
         <div class="text-center">
             <p class="fs-1 fw-bolder">Configuración de Privacidad</p>
             <div class="">
                 <div class="mb-3">
                     <label for="password" class="form-label text-black-50 fw-bolder">Contraseña</label>
-                    <input type="password" name="password" id="currentPassword" class="form-control mb-2" placeholder="Contraseña actual">
-                    <input type="password" name="password" id="newPassword" class="form-control mb-2" placeholder="Añade una nueva contraseña">
-                    <input type="password" name="password" id="againNePassword" class="form-control mb-2" placeholder="Confirma tu nueva contraseña">
+                    <input [(ngModel)]="updateUserPassword.current" type="password" name="current" id="currentPassword" class="form-control mb-2" placeholder="Contraseña actual">
+                    <input [(ngModel)]="updateUserPassword.new" type="password" name="new" id="newPassword" class="form-control mb-2" placeholder="Añade una nueva contraseña">
+                    <input [(ngModel)]="updateUserPassword.confirmNew" type="password" name="confirmNew" id="againNePassword" class="form-control mb-2" placeholder="Confirma tu nueva contraseña">
                 </div>
             </div>
             <hr>
             <br>
             <div class="d-flex justify-content-around">
-                <button type="submit" class="btn btn-outline-warning" [disabled]="!updatePassword.form.valid">Actualizar Datos</button>
+                <button type="submit" class="btn btn-outline-warning" [disabled]="!updatePasswordForm.form.valid">Actualizar Datos</button>
             </div>
         </div>
     </form>

@@ -5,6 +5,7 @@ import { map, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { User } from '../../models/user';
 import Swal from 'sweetalert2';
+import { UpdateUserPasswordInterface } from '../../interfaces/user';
 
 @Injectable({
   providedIn: 'root'
@@ -88,6 +89,26 @@ export class RestUserService {
     });
     let params = JSON.stringify(user);
     return this.http.put<any>(`${this.uri}user/updateUser/${userId}`, params,{headers: headers} ).pipe(map(this.extractData))
+  }
+
+  updateUserPassword(updatePass: UpdateUserPasswordInterface, userId: string){
+    delete updatePass._id;
+    delete updatePass.confirmNew;
+
+    let params = JSON.stringify(updatePass);
+
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + this.getToken()
+    });
+    return this.http.put<any>(`${this.uri}user/updatePassword/${userId}`, params, {headers}).pipe(map(this.extractData), catchError((err) => {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Upps!',
+        text: err.error.message
+      });
+      return throwError(err.error.message);
+    }));
   }
 
   deleteUser(userId: string){

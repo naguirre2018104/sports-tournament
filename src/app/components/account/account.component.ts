@@ -4,6 +4,7 @@ import { NgForm } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { CONNECTION } from '../../services/global';
+import { UpdateUserPasswordInterface } from '../../interfaces/user';
 
 @Component({
   selector: 'app-account',
@@ -13,34 +14,37 @@ import { CONNECTION } from '../../services/global';
 export class AccountComponent implements OnInit {
 
   myAccount: any;
+  userId: string = '';
+  updateUserPassword: UpdateUserPasswordInterface = {};
   public filesToUpload: Array<File> = [];
   uri: string;
 
   constructor(private resUser: RestUserService, private router: Router) {
     this.myAccount = {}
     this.uri = CONNECTION.URI
+    this.updateUserPassword = {
+      _id: "",
+      current: "",
+      new: "",
+      confirmNew: ""
+    };
   }
 
   ngOnInit() {
     this.resUser.getUserLS().then(user => {
       this.myAccount = user
+      this.userId = this.myAccount._id;
     });
   }
 
-  // ngDoCheck(){
-  //   this.resUser.getUserLS().then(user => {
-  //     this.myAccount = user
-  //   });
-  // }
-
   updateMyAccount(myAccountForm: NgForm){
-    let userId: string = this.myAccount._id;
     delete this.myAccount._id;
     delete this.myAccount.__v;
+    delete this.myAccount.password;
 
-    this.resUser.updateUser(this.myAccount, userId).subscribe((resp:any) => {
+    this.resUser.updateUser(this.myAccount, this.userId).subscribe((resp:any) => {
       if(resp.user){
-        delete  resp.user.password;
+        resp.user.password = null;
         delete resp.user.__v;
 
         this.myAccount = resp.user;
@@ -91,12 +95,45 @@ export class AccountComponent implements OnInit {
     })
   }
 
+  updatePassword(updatePasswordForm: NgForm){
+    if(this.updateUserPassword.new === this.updateUserPassword.confirmNew){
+      this.resUser.updateUserPassword(this.updateUserPassword, this.myAccount._id).subscribe((resp:any) => {
+        if(resp.user && resp.token){
+          delete resp.user._v;
+          resp.user.password = null;
+
+          this.myAccount = resp.user;
+          localStorage.setItem('user', JSON.stringify(this.myAccount));
+
+          Swal.fire({
+            icon: 'success',
+            title: 'Contraseña actualizada!',
+            text: "Has actualizado tu contraseña correctamente"
+          });
+        }else {
+          Swal.fire({
+            icon: 'warning',
+            title: 'Upps!',
+            text: 'No se actualizó correctamente su contraseña'
+          });
+        }
+      });
+    }else {
+      Swal.fire({
+        icon: 'error',
+        title: 'Upps!',
+        text: 'Confirma correctamente tu nueva contraseña, por favor'
+      });
+    }
+  }
+
   uploadUserImage(uploadUserImageForm){
     console.log(this.filesToUpload);
     this.resUser.addImageUser(this.myAccount._id, [], this.filesToUpload, "img")
     .then((resp:any) => {
       console.log(resp);
       if(resp.userImage){
+        resp.user.password = null;
         localStorage.setItem('user', JSON.stringify(resp.user))
         this.myAccount.img = resp.userImage;
         Swal.fire({
