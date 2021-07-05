@@ -43,7 +43,12 @@ export class LoginComponent implements OnInit {
           title: '¡Bienvenido!',
           text: 'Datos correctos'
         })
-        this.router.navigateByUrl('home#carouselExampleIndicators');
+
+        if(res.user.role == 'ROLE_ADMIN'){
+          this.router.navigateByUrl('homeAdmin');
+        }else{
+          this.router.navigateByUrl('home#carouselExampleIndicators');
+        }
       }
     },
     (error:any) => 
