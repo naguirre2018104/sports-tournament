@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
     this.restUser.login(this.user).subscribe((res:any) => {
       if(res.token){
 
-        delete res.user.password;
+        res.user.password = null;
         delete res.user.tournamentsAdmin;
         delete res.user.tournamentsUser;
 
@@ -42,10 +42,8 @@ export class LoginComponent implements OnInit {
           icon: 'success',
           title: '¡Bienvenido!',
           text: 'Datos correctos'
-        }).then(() => {
-          this.router.navigateByUrl('home#carouselExampleIndicators');
-        });
-        
+        })
+        this.router.navigateByUrl('home#carouselExampleIndicators');
       }
     },
     (error:any) => 

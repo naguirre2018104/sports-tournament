@@ -32,3 +32,7 @@ img {
     /* background-size: cover; */
     background-position: center;
 }
+
+.mt-custom {
+    margin-top: 7rem!important;
+}
