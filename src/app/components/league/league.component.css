@@ -5,6 +5,12 @@
     height: 75vh!important;
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 .leagues {
     width: 18rem;
     display: inline-block!important;

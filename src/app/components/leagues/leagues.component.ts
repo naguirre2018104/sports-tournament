@@ -18,7 +18,7 @@ export class LeaguesComponent implements OnInit {
   leagueId: string = "";
 
   constructor(private restLeague: RestLeagueService, private restUser: RestUserService) { 
-    this.league = new League("",[],[],[]);
+    this.league = new League("",'',[],[],[]);
   }
 
   ngOnInit(): void {
@@ -61,6 +61,7 @@ export class LeaguesComponent implements OnInit {
 
   onSubmit(leagueForm: NgForm){
     let leagueToCreate:any = this.league;
+    delete leagueToCreate._id;
     delete leagueToCreate.teams;
     delete leagueToCreate.reports;
     delete leagueToCreate.journey;
@@ -91,7 +92,7 @@ export class LeaguesComponent implements OnInit {
   }
 
   deleteLeagueInfo(){
-    this.league = new League("",[],[],[]);
+    this.league = new League("",'',[],[],[]);
     this.leagueId = "";
   }
 

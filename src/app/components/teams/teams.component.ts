@@ -22,8 +22,8 @@ export class TeamsComponent implements OnInit {
   filesImage: Array<File> = [];
 
   constructor(private restTeam: RestTeamService, private restLeague: RestLeagueService) { 
-    this.league = new League("",[],[],[]);
-    this.team = new Team("","");
+    this.league = new League("",'',[],[],[]);
+    this.team = new Team("","",'');
     this.uri = CONNECTION.URI;
   }
 
@@ -116,7 +116,7 @@ export class TeamsComponent implements OnInit {
   }
 
   clearTeamInfo(){
-    this.team = new Team("","");
+    this.team = new Team("","",'');
     this.teamId = "";
   }
 
