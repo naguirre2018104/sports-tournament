@@ -39,7 +39,7 @@ export class RestTeamService {
   getToken(){
     let token = localStorage.getItem('token')!;
     this.token = token;
-    
+
     return token;
   }
 
@@ -57,13 +57,13 @@ export class RestTeamService {
       var formData: any = new FormData();
       var xhr = new XMLHttpRequest();
       let uri = this.uri + "team/uploadTeamImage/" + teamId;
-      
+
       for(var i = 0; i < image.length; i++){
         formData.append(name, image[i], image[i].name);
       }
 
       xhr.onreadystatechange = ()=>{
-        if(xhr.readyState == 4){ // Es 4 porque tiene 5 estados y el estado 4 es cuando finaliza y la respuesta está lista. 
+        if(xhr.readyState == 4){ // Es 4 porque tiene 5 estados y el estado 4 es cuando finaliza y la respuesta está lista.
           if(xhr.status == 200){
             resolve(JSON.parse(xhr.response));
           }else{

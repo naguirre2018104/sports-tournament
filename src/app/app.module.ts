@@ -21,6 +21,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { SearchPipe } from './pipes/search.pipe';
 import { RestUserService } from './services/restUser/rest-user.service';
 import { RestLeagueService } from './services/restLeague/rest-league.service';
+import { GraphicReportComponent } from './components/graphic-report/graphic-report.component';
+import { ChartsModule } from 'ng2-charts'
 
 @NgModule({
   declarations: [
@@ -38,13 +40,15 @@ import { RestLeagueService } from './services/restLeague/rest-league.service';
     StadisticsComponent,
     TeamsComponent,
     AccountComponent,
-    SearchPipe
+    SearchPipe,
+    GraphicReportComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ChartsModule
   ],
   providers: [
     RestUserService,

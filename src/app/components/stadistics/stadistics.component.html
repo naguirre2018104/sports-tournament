@@ -1,45 +1,41 @@
 <div class="main mt-custom">
-    <form class="container p-4 row">
+    <form class="container p-4 row" #graphic="ngForm" (click)="createGraphic(graphic)">
         <p class="col">Reporte de</p>
-
-        <select name="report" id="inputReport" class="form-select col">
+        <select name="reportTeam" [(ngModel)]="reportTeam" id="inputReport" class="form-select col">
                     <option selected disabled>Tipo de Reporte</option>
-                    <option></option>   
+                    <option *ngFor="let report of reportTeams" [value]="report._id">{{report.team.name}}</option>
         </select>
-
-        <p class="col">Tipo de Gráfico:</p>
-
-        <select name="graphic" id="inputGraphic" class="form-select col">
-                    <option selected disabled>Tipo de Gráfico</option>
-                    <option></option>
-        </select>
-
         <button type="submit" class="btn btn-info mx-2 col">Generar</button>
     </form>
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">Equipo</th>
-                <th scope="col">Puntos Obtenido</th>
-                <th scope="col">Goles</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Mark</td>
-                <td>10</td>
-                <td>1</td>
-            </tr>
-            <tr>
-                <td>Jacob</td>
-                <td>0</td>
-                <td>0</td>
-            </tr>
-            <tr>
-                <td>Jacob</td>
-                <td>0</td>
-                <td>0</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="row">
+      <div class="col">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Equipo</th>
+                    <th scope="col">Puntos Obtenido</th>
+                    <th scope="col">Goles</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let report of reportTeams">
+                    <td>{{report.team.name}}</td>
+                    <td>{{report.score}}</td>
+                    <td>{{report.goals}}</td>
+                </tr>
+            </tbody>
+        </table>
+      </div>
+      <div *ngIf="hidden == true" class="col">
+        <div>
+          <div style="display: block;" >
+            <canvas baseChart
+              [data]="doughnutChartData"
+              [labels]="doughnutChartLabels"
+              [chartType]="doughnutChartType">
+            </canvas>
+          </div>
+        </div>
+      </div>
+    </div>
 </div>

@@ -29,14 +29,14 @@ export class LeagueComponent implements OnInit, DoCheck {
   teamsLeague: Array<Team> = [];
   filesImage: Array<File> = [];
 
-  constructor(private restLeague: RestLeagueService, private restTeam: RestTeamService, 
+  constructor(private restLeague: RestLeagueService, private restTeam: RestTeamService,
     private restJourney: RestJourneyService, private restSoccerGame: RestSoccerGameService,
-    private restReport: RestReportService) { 
+    private restReport: RestReportService) {
     this.league = new League("",'',[],[],[]);
     this.team = new Team("","",'');
     this.journey = new Journey('','',[]);
-    this.soccergame = new SoccerGame('',null, '', [], null, [], null);
-    this.report = new Report(null, null, null);
+    this.soccergame = new SoccerGame('','', '', [], 0, [], 0);
+    this.report = new Report(0, 0, 0);
   }
 
   ngOnInit(): void {
@@ -46,7 +46,7 @@ export class LeagueComponent implements OnInit, DoCheck {
         localStorage.setItem("league",JSON.stringify(resp.league));
         this.league = JSON.parse(localStorage.getItem("league")!);
         this.teamsLeague = this.league.teams;
-        this.journeysLeague = this.league.journey;
+        console.log(this.league.journey);
       }else{
         Swal.fire({
           icon: 'error',
@@ -85,11 +85,14 @@ export class LeagueComponent implements OnInit, DoCheck {
                   title: 'Equipo creado exitosamente'
                 })
                 if(league.teams.length > 0){
+
                   let journeyToCreate:any = this.journey;
                   delete journeyToCreate._id;
                   let league = JSON.parse(localStorage.getItem("league")!)
                   journeyToCreate.journey = league.name + ' - ' + ' Jornada ' + league.teams.length;
                   this.restJourney.createJourney(journeyToCreate, league._id).subscribe((resp:any)=>{
+                    this.journeysLeague.push(resp.journey);
+                    console.log(resp)
                     if(resp.journey){
                       this.restLeague.getLeague(league._id).subscribe((resp: any)=>{
                         if(resp.league){
@@ -135,7 +138,7 @@ export class LeagueComponent implements OnInit, DoCheck {
               Swal.fire({
                 icon: 'error',
                 title: '¡Ups!',
-                text: error.error.message
+                text: error.message
               })
             }
             )
@@ -145,7 +148,7 @@ export class LeagueComponent implements OnInit, DoCheck {
           Swal.fire({
             icon: 'error',
             title: '¡Ups!',
-            text: error.error.message
+            text: error.message
           })
         }
         )
@@ -185,10 +188,12 @@ export class LeagueComponent implements OnInit, DoCheck {
           console.log(soccerGameId);
           if(soccerGameToCreate.goalsTeamOne == soccerGameToCreate.goalsTeamTwo){
             // team uno reporte
+
             this.report.goals = soccerGameToCreate.goalsTeamOne;
             this.report.goalsAgainst = soccerGameToCreate.goalsTeamTwo;
             this.report.score = 1;
             this.restReport.createReport(this.report, this.league._id, teamOneId, soccerGameId, journeyId).subscribe((resp:any)=>{
+              console.log(resp);
               if(resp.report){
                 // team dos reporte
                 this.report.goals = soccerGameToCreate.goalsTeamTwo;
@@ -216,13 +221,16 @@ export class LeagueComponent implements OnInit, DoCheck {
                 })
               }
             })
-          }else if (soccerGameToCreate.goalsTeamOne > soccerGameToCreate.goalsTeamTwo){ 
+          }else if (soccerGameToCreate.goalsTeamOne > soccerGameToCreate.goalsTeamTwo){
                         // team uno reporte
+                        console.log("hola")
                         this.report.goals = soccerGameToCreate.goalsTeamOne;
                         this.report.goalsAgainst = soccerGameToCreate.goalsTeamTwo;
                         this.report.score = 3;
                         this.restReport.createReport(this.report, this.league._id, teamOneId, soccerGameId, journeyId).subscribe((resp:any)=>{
+
                           if(resp.report){
+
                             // team dos reporte
                             this.report.goals = soccerGameToCreate.goalsTeamTwo;
                             this.report.goalsAgainst = soccerGameToCreate.goalsTeamOne;

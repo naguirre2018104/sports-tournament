@@ -39,7 +39,7 @@ export class RestReportService {
   getToken(){
     let token = localStorage.getItem('token')!;
     this.token = token;
-    
+
     return token;
   }
 
@@ -50,6 +50,14 @@ export class RestReportService {
       'Authorization': 'Bearer ' + this.getToken()
     });
     return this.http.post<any>(`${this.uri}report/create/${leagueId}/${teamId}/${soccerGameId}/${journeyId}`, params,{headers: headers}).pipe(map(this.extractData))
+  }
+
+  getReport(idReport:any){
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + this.getToken()
+    })
+    return this.http.get<any>(`${this.uri}report/oneReport/${idReport}`, {headers: headers}).pipe(map(this.extractData));
   }
 
 

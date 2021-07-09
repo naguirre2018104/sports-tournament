@@ -14,19 +14,20 @@ import { StadisticsComponent } from './components/stadistics/stadistics.componen
 import { AccountComponent } from './components/account/account.component';
 import { AdminGuard } from './guards/admin.guard';
 import { UserGuard } from './guards/user.guard';
+import { GraphicReportComponent } from './components/graphic-report/graphic-report.component'
 
 const routes: Routes = [
   {
     path: "", redirectTo: "login", pathMatch: "full"
   },
   {
-    path: "league", 
+    path: "league",
     canActivate:[UserGuard],
     component: LeagueComponent
   },
   {
-    path: "leagues", 
-    canActivate: [UserGuard], 
+    path: "leagues",
+    canActivate: [UserGuard],
     component: LeaguesComponent
   },
   {
@@ -37,7 +38,7 @@ const routes: Routes = [
   },
   {
     path: "home",
-    canActivate:[UserGuard], 
+    canActivate:[UserGuard],
     component: HomeComponent
   },
   {
@@ -51,7 +52,7 @@ const routes: Routes = [
   },
   {
     path:"login",
-    //canActivate:[UserGuard],  
+    //canActivate:[UserGuard],
     component: LoginComponent
   },
   {
@@ -64,7 +65,9 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [
+    RouterModule.forRoot(routes),
+  ],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
