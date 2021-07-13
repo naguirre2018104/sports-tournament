@@ -13,7 +13,7 @@ import { RestReportService } from '../../services/restReport/rest-report.service
 })
 export class StadisticsComponent implements OnInit {
 
-  public league:any;
+  public league:any = null;
   public reports = [] as any;
   /*public reportTeams: Array<ReportInterface>;*/
   public reportTeams = [] as any;
@@ -36,17 +36,19 @@ export class StadisticsComponent implements OnInit {
   ngOnInit(): void {
     this.hidden = true;
     this.league = JSON.parse(localStorage.getItem('league')!);
-    this.restLeague.getLeague(this.league._id).subscribe((res:any) => {
-      localStorage.setItem('league', JSON.stringify(res.league))
-      this.reports = res.league.reports;
-      this.reports.forEach((elemento:any) => {
-        this.restReport.getReport(elemento._id).subscribe((res:any) => {
-          this.reportTeams.push(res.report);
-          this.nameTeam.push(res.report.team.name);
 
-        })
-      })
-    })
+    if(this.league != null){
+      this.restLeague.getLeague(this.league._id).subscribe((res:any) => {
+        localStorage.setItem('league', JSON.stringify(res.league))
+        this.reports = res.league.reports;
+        this.reports.forEach((elemento:any) => {
+          this.restReport.getReport(elemento._id).subscribe((res:any) => {
+            this.reportTeams.push(res.report);
+            this.nameTeam.push(res.report.team.name);
+          });
+        });
+      });
+    }
     this.goles = JSON.parse(localStorage.getItem('goles')!)
     console.log(this.goles);
     this.doughnutChartData.push(this.goles)

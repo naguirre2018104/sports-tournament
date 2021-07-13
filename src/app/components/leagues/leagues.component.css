@@ -1,3 +1,10 @@
+html {
+    box-sizing: border-box;
+}
+  *, *:before, *:after {
+    box-sizing: inherit;
+}
+
 .main {
     max-height: 80vh!important;
     width: 85vw!important;
@@ -21,4 +28,15 @@
 
 .mt-custom {
     margin-top: 7rem!important;
+}
+
+.hover-effect {
+    transition: all .5s ease-in-out ;
+}
+
+.hover-effect:hover {
+    padding: 2rem;
+    background-color: #dffffe;
+    cursor: pointer;
+    border-color: white;
 }

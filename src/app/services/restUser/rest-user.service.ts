@@ -68,14 +68,7 @@ export class RestUserService {
 
   login(user: User){
     let params = JSON.stringify(user);
-    return this.http.post<any>(`${this.uri}user/login`, params, this.httpOptions).pipe(map(this.extractData), catchError((err) => {
-      Swal.fire({
-        icon: 'error',
-        title: 'Upps!',
-        text: err.error.message
-      })
-      return throwError(err.error.message)
-    }))
+    return this.http.post<any>(`${this.uri}user/login`, params, this.httpOptions).pipe(map(this.extractData), catchError((err) => this.handlerError(err)));
   }
 
   getUsers(){
@@ -116,7 +109,7 @@ export class RestUserService {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + this.getToken()
     });
-    return this.http.delete<any>(`${this.uri}user/deleteUser/${userId}`, {headers: headers} ).pipe(map(this.extractData))
+    return this.http.delete<any>(`${this.uri}user/deleteUser/${userId}`, {headers} ).pipe(map(this.extractData))
   }
 
   getUser(userId: string){
@@ -153,6 +146,15 @@ export class RestUserService {
       xhr.setRequestHeader('Authorization','Bearer ' + this.getToken());
       xhr.send(formData);
     })
+  }
+
+  handlerError(err){
+    Swal.fire({
+      icon: 'warning',
+      title: 'Upps!',
+      text: err.error.message
+    });
+    return throwError(err.error.message);
   }
 
 }
