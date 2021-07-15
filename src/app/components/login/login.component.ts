@@ -50,14 +50,7 @@ export class LoginComponent implements OnInit {
           this.router.navigateByUrl('home#carouselExampleIndicators');
         }
       }
-    },
-    (error:any) => 
-    Swal.fire({
-      icon: 'error',
-      title: '¡Ups!',
-      text: error.error.message
     })
-    )
   }
 
 }

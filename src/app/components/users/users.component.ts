@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { User } from 'src/app/models/user';
 import { RestUserService } from 'src/app/services/restUser/rest-user.service';
 import Swal from 'sweetalert2';
+import { CONNECTION } from '../../services/global';
 
 @Component({
   selector: 'app-users',
@@ -16,13 +17,15 @@ export class UsersComponent implements OnInit {
   users: Array<User> = [];
   roles: Array<String> = ["ROLE_CLIENT", "ROLE_ADMIN"];
   search: any;
+  uri: string;
 
   constructor(private restUser: RestUserService) { 
     this.user = new User("", "", "", "", "ROLE_CLIENT", "", [], []);
+    this.uri =  CONNECTION.URI;
   }
 
-  ngOnInit(): void {
-    this.loadUsers();
+  async ngOnInit() {
+    await this.loadUsers();
   }
 
   ngDoCheck(): void{
@@ -56,14 +59,7 @@ export class UsersComponent implements OnInit {
         this.users.push(resp.user);
         localStorage.setItem("users",JSON.stringify(this.users)!);
       }
-    },
-    (error:any)=>
-    Swal.fire({
-      icon: 'error',
-      title: '¡Ups!',
-      text: error.error.message
-    })
-    )
+    });
   }
 
   updateUserByAdmin(updateUser: NgForm){

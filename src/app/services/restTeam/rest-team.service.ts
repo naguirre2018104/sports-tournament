@@ -4,6 +4,7 @@ import { map, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { Team } from 'src/app/models/team';
 import { CONNECTION } from '../global';
+import Swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root'
@@ -49,7 +50,7 @@ export class RestTeamService {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + this.getToken()
     });
-    return this.http.post<any>(`${this.uri}team/create/${leagueId}`, params,{headers: headers}).pipe(map(this.extractData))
+    return this.http.post<any>(`${this.uri}team/create/${leagueId}`, params,{headers}).pipe(map(this.extractData, catchError((err) => this.handlerError(err))))
   }
 
   addTeamImage(teamId: string, params: Array<string>, image: Array<File>, name:string){
@@ -84,7 +85,7 @@ export class RestTeamService {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + this.getToken()
     });
-    return this.http.put<any>(`${this.uri}team/updateTeam/${teamId}`, params,{headers: headers}).pipe(map(this.extractData))
+    return this.http.put<any>(`${this.uri}team/updateTeam/${teamId}`, params,{headers}).pipe(map(this.extractData, catchError((err) => this.handlerError(err))))
   }
 
   deleteTeam(teamId: string, leagueId: string){
@@ -92,6 +93,15 @@ export class RestTeamService {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + this.getToken()
     });
-    return this.http.delete<any>(`${this.uri}team/deleteTeam/${teamId}/${leagueId}`,{headers: headers}).pipe(map(this.extractData))
+    return this.http.delete<any>(`${this.uri}team/deleteTeam/${teamId}/${leagueId}`,{headers}).pipe(map(this.extractData, catchError((err) => this.handlerError(err))))
+  }
+
+  handlerError(err){
+    Swal.fire({
+      icon: 'warning',
+      title: 'Upps!',
+      text: err.error.message
+    });
+    return throwError(err.error.message);
   }
 }

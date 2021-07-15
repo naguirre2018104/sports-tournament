@@ -1,14 +1,15 @@
-<div class="mt-custom main p-4">
+<div [ngClass]="{'mt-custom': user.role == 'ROLE_CLIENT'}" class="main p-4">
     <div class="container">
         <div class="jumbotron jumbotron-fluid p-4 ps-4 pe-4 text-light shadow-sm border border-2 rounded d-flex align-middle">
             <p class="display-4 fw-bolder text-dark m-0">Mis ligas</p>
             <a class="btn text-success fs-1" role="button" data-bs-toggle="modal" data-bs-target="#createLeague"><i class="bi bi-plus-circle-fill"></i></a>
         </div>
         <br>
-        <div class="overflow-auto maxheight" *ngIf="leagues.length != 0 && leagues != null; else noData">
+        <div class="overflow-auto maxheight scrollbar-hidden" *ngIf="leagues.length != 0 && leagues != null; else noData">
             <div class="card shadow-sm leagues bg-light col-1 p-1" style="width: 18rem;" *ngFor="let league of leagues">
+                <img src="./../../../assets/images/league.jpg" class="card-img-top" (click)="sendLeagueInfo(league)" alt="..." routerLink="/league">
                 <div class="card-body text-center hover-effect" (click)="sendLeagueInfo(league)" routerLink="/league">
-                    <h5 class="card-title mb-2 text-center fs-1 text-uppercase">{{ league.name }}</h5>
+                    <h5 class="card-title mb-2 text-center fs-1">{{ league.name }}</h5>
                     <hr>
                     <div class="d-flex justify-content-around">
                         <a class="btn btn-warning col-5" data-bs-toggle="modal" data-bs-target="#updateLeague" (click)="setLeagueInfo(league)"><i class="bi bi-pencil-square"></i></a>

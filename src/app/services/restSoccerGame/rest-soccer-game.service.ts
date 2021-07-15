@@ -1,9 +1,10 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, catchError } from 'rxjs/operators';
-import { throwError } from 'rxjs';
 import { SoccerGame } from 'src/app/models/soccergame';
 import { CONNECTION } from '../global';
+import Swal from 'sweetalert2';
+import { throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -49,7 +50,16 @@ export class RestSoccerGameService {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + this.getToken()
     });
-    return this.http.post<any>(`${this.uri}soccergame/create/${teamOneId}/${teamTwoId}/${journeyId}`, params,{headers: headers}).pipe(map(this.extractData))
+    return this.http.post<any>(`${this.uri}soccergame/create/${teamOneId}/${teamTwoId}/${journeyId}`, params,{headers: headers}).pipe(map(this.extractData, catchError((err) => this.handlerError(err))))
+  }
+
+  handlerError(err){
+    Swal.fire({
+      icon: 'warning',
+      title: 'Upps!',
+      text: err.error.message
+    });
+    return throwError(err.error.message);
   }
 
 

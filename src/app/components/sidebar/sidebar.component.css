@@ -27,24 +27,23 @@ body {
 }
 
 .logo {
-    max-width: 8rem;
-    max-height: 8rem;
+    max-width: 10rem;
+    max-height: 10rem;
+    height: 9rem;
+    width: 10rem;
+    object-fit: cover;
+    object-position: 100% 0;
 }
 
 a {
     color: white;
     transition: all .5s ease-in-out;
+    border-radius: 1rem;
 }
 
 a:hover {
     color: black;
     border-bottom: 1px solid white;
     background-color: white;
-    border-radius: 1rem;
+
 }
-
-
-/* a:visited {
-    color: white;
-    border-bottom: 1px solid white;
-} */

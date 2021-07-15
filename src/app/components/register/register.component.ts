@@ -23,7 +23,6 @@ export class RegisterComponent implements OnInit {
 
 
   onSubmit(registerForm: NgForm){
-    console.log(this.user);
     this.restUser.register(this.user).subscribe((res:any)=>{
       if(res.user){
         Swal.fire({
@@ -35,8 +34,7 @@ export class RegisterComponent implements OnInit {
           this.router.navigateByUrl('login')
         })
         
-      }
-      console.log(res);
+      };
     },
     (error:any) => 
     Swal.fire({

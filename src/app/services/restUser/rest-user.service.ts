@@ -56,14 +56,7 @@ export class RestUserService {
   register(user:User){
     let params = JSON.stringify(user);
 
-    return this.http.post<any>(`${this.uri}user/create`, params, this.httpOptions).pipe(map(this.extractData), catchError((err) => {
-      Swal.fire({
-        icon: 'success',
-        title: '¡Bienvenido!',
-        text: err.error.message
-      })
-      return throwError(err.error.message)
-    }));
+    return this.http.post<any>(`${this.uri}user/create`, params, this.httpOptions).pipe(map(this.extractData, catchError((err) => this.handlerError(err))));
   }
 
   login(user: User){
@@ -81,7 +74,7 @@ export class RestUserService {
       'Authorization': 'Bearer ' + this.getToken()
     });
     let params = JSON.stringify(user);
-    return this.http.put<any>(`${this.uri}user/updateUser/${userId}`, params,{headers: headers} ).pipe(map(this.extractData))
+    return this.http.put<any>(`${this.uri}user/updateUser/${userId}`, params,{headers} ).pipe(map(this.extractData, catchError((err) => this.handlerError(err))))
   }
 
   updateUserPassword(updatePass: UpdateUserPasswordInterface, userId: string){
@@ -94,14 +87,7 @@ export class RestUserService {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + this.getToken()
     });
-    return this.http.put<any>(`${this.uri}user/updatePassword/${userId}`, params, {headers}).pipe(map(this.extractData), catchError((err) => {
-      Swal.fire({
-        icon: 'warning',
-        title: 'Upps!',
-        text: err.error.message
-      });
-      return throwError(err.error.message);
-    }));
+    return this.http.put<any>(`${this.uri}user/updatePassword/${userId}`, params, {headers}).pipe(map(this.extractData, catchError((err) => this.handlerError(err))));
   }
 
   deleteUser(userId: string){
@@ -109,7 +95,7 @@ export class RestUserService {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + this.getToken()
     });
-    return this.http.delete<any>(`${this.uri}user/deleteUser/${userId}`, {headers} ).pipe(map(this.extractData))
+    return this.http.delete<any>(`${this.uri}user/deleteUser/${userId}`, {headers} ).pipe(map(this.extractData, catchError((err) => this.handlerError(err))))
   }
 
   getUser(userId: string){
@@ -117,7 +103,7 @@ export class RestUserService {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + this.getToken()
     });
-    return this.http.get<any>(`${this.uri}user/oneUser/${userId}`, {headers: headers} ).pipe(map(this.extractData))
+    return this.http.get<any>(`${this.uri}user/oneUser/${userId}`, {headers: headers} ).pipe(map(this.extractData, catchError((err) => this.handlerError(err))))
   }
 
   addImageUser(userId: string, params: Array<string>, files: Array<File>, name: string){

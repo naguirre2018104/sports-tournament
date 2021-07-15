@@ -1,9 +1,10 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, catchError } from 'rxjs/operators';
-import { throwError } from 'rxjs';
 import { Report } from 'src/app/models/report';
 import { CONNECTION } from '../global';
+import Swal from 'sweetalert2';
+import { throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -49,7 +50,7 @@ export class RestReportService {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + this.getToken()
     });
-    return this.http.post<any>(`${this.uri}report/create/${leagueId}/${teamId}/${soccerGameId}/${journeyId}`, params,{headers: headers}).pipe(map(this.extractData))
+    return this.http.post<any>(`${this.uri}report/create/${leagueId}/${teamId}/${soccerGameId}/${journeyId}`, params,{headers}).pipe(map(this.extractData, catchError((err) => this.handlerError(err))));
   }
 
   getReport(idReport:any){
@@ -57,8 +58,15 @@ export class RestReportService {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + this.getToken()
     })
-    return this.http.get<any>(`${this.uri}report/oneReport/${idReport}`, {headers: headers}).pipe(map(this.extractData));
+    return this.http.get<any>(`${this.uri}report/oneReport/${idReport}`, {headers}).pipe(map(this.extractData, catchError((err) => this.handlerError(err))));
   }
 
-
+  handlerError(err){
+    Swal.fire({
+      icon: 'warning',
+      title: 'Upps!',
+      text: err.error.message
+    });
+    return throwError(err.error.message);
+  }
 }

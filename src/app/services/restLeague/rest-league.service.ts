@@ -1,8 +1,10 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
 import { League } from 'src/app/models/league';
 import { CONNECTION } from '../global';
+import Swal from 'sweetalert2';
+import { throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -49,7 +51,7 @@ export class RestLeagueService {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + this.getToken()
     });
-    return this.http.get<any>(`${this.uri}league/getLeagues`, {headers: headers}).pipe(map(this.extractData))
+    return this.http.get<any>(`${this.uri}league/getLeagues`, {headers}).pipe(map(this.extractData, catchError((err) => this.handlerError(err))))
   }
 
   createLeague(league: League){
@@ -58,7 +60,7 @@ export class RestLeagueService {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + this.getToken()
     });
-    return this.http.post<any>(`${this.uri}league/create`, params,{headers: headers}).pipe(map(this.extractData))
+    return this.http.post<any>(`${this.uri}league/create`, params,{headers: headers}).pipe(map(this.extractData,catchError((err) => this.handlerError(err))))
   }
 
   updateLeague(league: League, leagueId: string){
@@ -67,7 +69,7 @@ export class RestLeagueService {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + this.getToken()
     });
-    return this.http.put<any>(`${this.uri}league/updateLeague/${leagueId}`, params,{headers: headers}).pipe(map(this.extractData))
+    return this.http.put<any>(`${this.uri}league/updateLeague/${leagueId}`, params,{headers: headers}).pipe(map(this.extractData, catchError((err) => this.handlerError(err))))
   }
 
   deleteLeague(leagueId:string){
@@ -75,7 +77,7 @@ export class RestLeagueService {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + this.getToken()
     });
-    return this.http.delete<any>(`${this.uri}league/deleteLeague/${leagueId}`,{headers: headers}).pipe(map(this.extractData))
+    return this.http.delete<any>(`${this.uri}league/deleteLeague/${leagueId}`,{headers: headers}).pipe(map(this.extractData, catchError((err) => this.handlerError(err))))
   }
 
   getLeague(leagueId: string){
@@ -83,6 +85,15 @@ export class RestLeagueService {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + this.getToken()
     });
-    return this.http.get<any>(`${this.uri}league/oneLeague/${leagueId}`,{headers: headers}).pipe(map(this.extractData))
+    return this.http.get<any>(`${this.uri}league/oneLeague/${leagueId}`,{headers: headers}).pipe(map(this.extractData, catchError((err) => this.handlerError(err))))
+  }
+
+  handlerError(err){
+    Swal.fire({
+      icon: 'warning',
+      title: 'Upps!',
+      text: err.error.message
+    });
+    return throwError(err.error.message);
   }
 }

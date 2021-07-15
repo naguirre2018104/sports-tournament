@@ -1,4 +1,4 @@
-import { Component, OnInit, DoCheck } from '@angular/core';
+import { Component, OnInit, DoCheck, Input } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { League } from 'src/app/models/league';
 import { RestLeagueService } from 'src/app/services/restLeague/rest-league.service';
@@ -16,6 +16,8 @@ export class LeaguesComponent implements OnInit {
   league: League;
   user = JSON.parse(localStorage.getItem("user")!);
   leagueId: string = "";
+  @Input('class') klass: string = "";
+  @Input() ngClass: string | string[] | Set<string> | { [klass: string]: any; } = "";
 
   constructor(private restLeague: RestLeagueService, private restUser: RestUserService) { 
     this.league = new League("",'',[],[],[]);

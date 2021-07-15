@@ -1,8 +1,10 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
 import { Journey } from 'src/app/models/journey';
 import { CONNECTION } from '../global';
+import Swal from 'sweetalert2';
+import { throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -50,7 +52,16 @@ export class RestJourneyService {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + this.getToken()
     });
-    return this.http.post<any>(`${this.uri}journey/${leagueId}/create`, params,{headers: headers}).pipe(map(this.extractData))
+    return this.http.post<any>(`${this.uri}journey/${leagueId}/create`, params,{headers: headers}).pipe(map(this.extractData, catchError((err) => this.handlerError(err))))
+  }
+
+  handlerError(err){
+    Swal.fire({
+      icon: 'warning',
+      title: 'Upps!',
+      text: err.error.message
+    });
+    return throwError(err.error.message);
   }
 
 }

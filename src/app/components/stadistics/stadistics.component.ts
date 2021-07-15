@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
-import { ReportInterface } from '../../interfaces/report';
 import { ChartType } from 'chart.js'
 import { MultiDataSet, Label } from 'ng2-charts'
 import { RestLeagueService } from '../../services/restLeague/rest-league.service';
@@ -50,10 +48,10 @@ export class StadisticsComponent implements OnInit {
       });
     }
     this.goles = JSON.parse(localStorage.getItem('goles')!)
-    console.log(this.goles);
-    this.doughnutChartData.push(this.goles)
-    console.log(this.doughnutChartData);
-    console.log(this.reportTeams)
+    // console.log(this.goles);
+    // this.doughnutChartData.push(this.goles)
+    // console.log(this.doughnutChartData);
+    // console.log(this.reportTeams)
     this.league =  JSON.parse(localStorage.getItem('league')!)
   }
 
@@ -62,7 +60,7 @@ export class StadisticsComponent implements OnInit {
     console.log(idReport)
     this.restReport.getReport(idReport).subscribe((res:any) => {
       this.goals.push(JSON.stringify([res.report.goals, res.report.goalsAgainst, res.report.score]));
-      console.log(this.goals)
+      // console.log(this.goals)
       localStorage.setItem('goles', this.goals)
       window.location.reload();
     })

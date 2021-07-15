@@ -40,7 +40,7 @@
     <br>
 </div>
 
-<div class="container fluid bg-light p-4 pt-0 mt-4 mb-4 border border-white shadow-sm border-3 bg-custom">
+<div *ngIf="myAccount.role != 'ROLE_ADMIN'" class="container fluid bg-light p-4 pt-0 mt-4 mb-4 border border-white shadow-sm border-3 bg-custom">
     <form #updatePasswordForm="ngForm" (ngSubmit)="updatePassword(updatePasswordForm)" class="d-flex responsiveC mt-4 p-4 text-center">
         <div class="text-center">
             <p class="fs-1 fw-bolder">Configuración de Privacidad</p>
@@ -62,7 +62,7 @@
 </div>
 
 
-<div class="container fluid bg-light p-4 pt-0 mt-4 mb-4 border border-white shadow-sm border-3 bg-custom">
+<div *ngIf="myAccount.role != 'ROLE_ADMIN'" class="container fluid bg-light p-4 pt-0 mt-4 mb-4 border border-white shadow-sm border-3 bg-custom">
     <div class="row responsiveC mt-4">
         <p class="fs-1 fw-bolder">Eliminar Cuenta</p>
         <div class="col-6">
@@ -80,8 +80,8 @@
 </div>
 
 <!-- Modal Confirmacion de eliminar cuenta -->
-<div class="modal fade" id="deleteAccountUserModal" tabindex="-1" aria-labelledby="deleteAccountUserLabel" aria-hidden="true">
-    <div class="modal-dialog">
+<div *ngIf="myAccount.role != 'ROLE_ADMIN'" class="modal fade" id="deleteAccountUserModal" tabindex="-1" aria-labelledby="deleteAccountUserLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="deleteAccountUserLabel">Eliminar Cuenta de Usuario</h5>
